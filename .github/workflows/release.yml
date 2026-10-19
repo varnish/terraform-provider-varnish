@@ -1,0 +1,119 @@
+name: release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  security-events: write # Trivy SARIF upload
+  actions: read # the SARIF upload reads its own run
+
+env:
+  TRIVY_VERSION: "0.74.0"
+  TRIVY_SHA256: "2ae6fe3ee734b7fdf11335663e18c75ea12dccc76062f09f164a3b0f8be4371a"
+  TRIVY_DISABLE_VEX_NOTICE: "true"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # holds the signing secrets, only allowed for v* tags
+    environment: Release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: "1.26.x" # newest patch release; go.mod only sets the minimum
+          check-latest: true
+          cache: false # no cache from other runs in the signing job
+
+      - name: test
+        run: go test -race ./...
+
+      # syft, used by goreleaser for SBOMs
+      - uses: anchore/sbom-action/download-syft@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3
+
+      # plain gpg so no third-party action sees the key
+      - name: import gpg key
+        id: gpg
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: |
+          printf '%s\n' "$GPG_PRIVATE_KEY" | gpg --batch --quiet --import
+          fpr=$(gpg --list-secret-keys --with-colons | awk -F: '/^fpr:/{print $10; exit}')
+          if [ -z "$fpr" ]; then
+            echo "no secret key imported; check the GPG_PRIVATE_KEY secret" >&2
+            exit 1
+          fi
+          echo "fingerprint=$fpr" >> "$GITHUB_OUTPUT"
+
+      - uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
+        with:
+          version: v2.18.2
+          args: release --clean
+        env:
+          GPG_FINGERPRINT: ${{ steps.gpg.outputs.fingerprint }}
+          GPG_PASSPHRASE: ${{ secrets.PASSPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: remove gpg key
+        if: always()
+        run: |
+          gpgconf --kill gpg-agent
+          rm -rf "$HOME/.gnupg"
+
+      - name: install trivy
+        run: |
+          mkdir -p "$RUNNER_TEMP/bin"
+          cd "$RUNNER_TEMP"
+          curl -sSfL -o trivy.tar.gz \
+            "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+          echo "${TRIVY_SHA256}  trivy.tar.gz" | sha256sum -c -
+          tar -xzf trivy.tar.gz -C "$RUNNER_TEMP/bin" trivy
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      # all archives have the same Go modules, so one SBOM is enough
+      - name: trivy scan
+        working-directory: ${{ github.workspace }}
+        run: |
+          sbom=$(ls dist/*_linux_amd64.zip.sbom.json)
+          echo "scanning $sbom"
+          trivy sbom --scanners vuln --format json -o trivy.json "$sbom"
+          trivy convert --format sarif -o trivy.sarif trivy.json
+          trivy convert --format table trivy.json > trivy-report.txt
+          # convert prints nothing when clean
+          if [ ! -s trivy-report.txt ]; then
+            echo "No vulnerabilities found." > trivy-report.txt
+          fi
+          cat trivy-report.txt
+
+      # code scanning needs Code Security on non-public repos
+      - name: upload sarif
+        if: always() && hashFiles('trivy.sarif') != '' && github.event.repository.visibility == 'public'
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          sarif_file: trivy.sarif
+          category: trivy-release
+
+      - name: attach report to release
+        if: always() && hashFiles('trivy-report.txt') != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          {
+            echo '## Trivy scan'
+            echo '```'
+            cat trivy-report.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          gh release upload "$TAG" trivy-report.txt --clobber
+
+      # the release is already published, so this only marks the run failed
+      - name: fail on critical vulnerabilities
+        run: trivy convert --exit-code 1 --severity CRITICAL --format table trivy.json

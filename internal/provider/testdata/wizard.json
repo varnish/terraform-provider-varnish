@@ -1,0 +1,1368 @@
+{
+  "name": "wizard.webapi.name",
+  "description": "wizard.webapi.description",
+  "icon": "demoWizardIcon",
+  "wizardVersion": {
+    "id": 1,
+    "wizardId": 1,
+    "steps": [
+      {
+        "name": "wizard.steps.general.name",
+        "description": "wizard.steps.general.description",
+        "icon": "general",
+        "fields": [
+          {
+            "type": "multi-select",
+            "stringId": "general.allowMethods",
+            "name": "wizard.steps.general.fields.allowMethods.name",
+            "description": "wizard.steps.general.fields.allowMethods.description",
+            "longDescription": "wizard.steps.general.fields.allowMethods.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#allowed-methods",
+            "valueOptions": [
+              {
+                "value": "GET",
+                "label": "http.method.GET"
+              },
+              {
+                "value": "HEAD",
+                "label": "http.method.HEAD"
+              },
+              {
+                "value": "POST",
+                "label": "http.method.POST"
+              },
+              {
+                "value": "PUT",
+                "label": "http.method.PUT"
+              },
+              {
+                "value": "PATCH",
+                "label": "http.method.PATCH"
+              },
+              {
+                "value": "DELETE",
+                "label": "http.method.DELETE"
+              },
+              {
+                "value": "CONNECT",
+                "label": "http.method.CONNECT"
+              },
+              {
+                "value": "OPTIONS",
+                "label": "http.method.OPTIONS"
+              },
+              {
+                "value": "TRACE",
+                "label": "http.method.TRACE"
+              }
+            ],
+            "value": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "ruleJsonPath": "methods"
+          },
+          {
+            "type": "boolean",
+            "stringId": "general.uncacheable",
+            "name": "wizard.steps.general.fields.uncacheable.name",
+            "description": "wizard.steps.general.fields.uncacheable.description",
+            "longDescription": "wizard.steps.general.fields.uncacheable.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#disable-cache",
+            "value": false,
+            "ruleJsonPath": "uncacheable"
+          },
+          {
+            "type": "boolean",
+            "stringId": "general.enableCacheableTTLOverride",
+            "name": "wizard.steps.general.fields.enableCacheableTTLOverride.name",
+            "description": "wizard.steps.general.fields.enableCacheableTTLOverride.description",
+            "longDescription": "wizard.steps.general.fields.enableCacheableTTLOverride.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#time-to-live-of-objects-ttl",
+            "value": true,
+            "conditionalFields": [
+              {
+                "type": "text",
+                "stringId": "general.cacheableTTLOverride",
+                "name": "wizard.steps.general.fields.cacheableTTLOverride.name",
+                "description": "wizard.steps.general.fields.cacheableTTLOverride.description",
+                "longDescription": "wizard.steps.general.fields.cacheableTTLOverride.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#set-static-ttl",
+                "regexErrorHint": "wizard.steps.general.fields.cacheableTTLOverride.regexErrorHint",
+                "placeholderText": "wizard.steps.general.fields.cacheableTTLOverride.placeholderText",
+                "validationRegex": "duration_regex",
+                "value": "10m",
+                "ruleJsonPath": "ttl",
+                "conditionValue": [
+                  true
+                ],
+                "minSize": 1
+              }
+            ]
+          },
+          {
+            "type": "boolean",
+            "stringId": "general.enableErrorCodeTTLOverride",
+            "name": "wizard.steps.general.fields.enableErrorCodeTTLOverride.name",
+            "description": "wizard.steps.general.fields.enableErrorCodeTTLOverride.description",
+            "longDescription": "wizard.steps.general.fields.enableErrorCodeTTLOverride.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#time-to-live-of-objects-ttl",
+            "value": true,
+            "conditionalFields": [
+              {
+                "type": "text",
+                "stringId": "general.errorCodeTTLOverride",
+                "name": "wizard.steps.general.fields.errorCodeTTLOverride.name",
+                "description": "wizard.steps.general.fields.errorCodeTTLOverride.description",
+                "longDescription": "wizard.steps.general.fields.errorCodeTTLOverride.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#set-static-ttl",
+                "regexErrorHint": "wizard.steps.general.fields.errorCodeTTLOverride.regexErrorHint",
+                "placeholderText": "wizard.steps.general.fields.errorCodeTTLOverride.placeholderText",
+                "validationRegex": "duration_regex",
+                "value": "10m",
+                "ruleJsonPath": "error_code_ttl",
+                "conditionValue": [
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "stringId": "general.uncacheableTTL",
+            "name": "wizard.steps.general.fields.uncacheableTTL.name",
+            "description": "wizard.steps.general.fields.uncacheableTTL.description",
+            "longDescription": "wizard.steps.general.fields.uncacheableTTL.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#uncacheable-ttl",
+            "regexErrorHint": "wizard.steps.general.fields.uncacheableTTL.regexErrorHint",
+            "placeholderText": "wizard.steps.general.fields.uncacheableTTL.placeholderText",
+            "validationRegex": "duration_regex",
+            "value": "1m",
+            "ruleJsonPath": "uncacheable_ttl"
+          },
+          {
+            "type": "text",
+            "stringId": "general.firstByteTimeout",
+            "name": "wizard.steps.general.fields.firstByteTimeout.name",
+            "description": "wizard.steps.general.fields.firstByteTimeout.description",
+            "longDescription": "wizard.steps.general.fields.firstByteTimeout.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#first-byte-timeout",
+            "regexErrorHint": "wizard.steps.general.fields.firstByteTimeout.regexErrorHint",
+            "placeholderText": "wizard.steps.general.fields.firstByteTimeout.placeholderText",
+            "validationRegex": "duration_regex",
+            "value": "10s",
+            "ruleJsonPath": "first_byte_timeout"
+          },
+          {
+            "type": "select",
+            "stringId": "general.websocket",
+            "name": "wizard.steps.general.fields.websocket.name",
+            "description": "wizard.steps.general.fields.websocket.description",
+            "longDescription": "wizard.steps.general.fields.websocket.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#websocket",
+            "valueOptions": [
+              {
+                "value": "disable",
+                "label": "wizard.steps.general.fields.websocket.option.disable"
+              },
+              {
+                "value": "enable",
+                "label": "wizard.steps.general.fields.websocket.option.enable"
+              },
+              {
+                "value": "exclusive",
+                "label": "wizard.steps.general.fields.websocket.option.exclusive"
+              }
+            ],
+            "value": 0,
+            "ruleJsonPath": "websocket",
+            "usageMetric": "websocket-minutes",
+            "pricing": "wizard.steps.general.fields.websocket.pricing"
+          },
+          {
+            "type": "boolean",
+            "stringId": "general.allowBodyWithGet",
+            "name": "wizard.steps.general.fields.allowBodyWithGet.name",
+            "description": "wizard.steps.general.fields.allowBodyWithGet.description",
+            "longDescription": "wizard.steps.general.fields.allowBodyWithGet.longDescription",
+            "value": false,
+            "ruleJsonPath": "allow_body_with_get"
+          },
+          {
+            "type": "select",
+            "stringId": "general.urlDecodeReserved",
+            "name": "wizard.steps.general.fields.urlDecodeReserved.name",
+            "description": "wizard.steps.general.fields.urlDecodeReserved.description",
+            "longDescription": "wizard.steps.general.fields.urlDecodeReserved.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#reserved-character-url-decoding",
+            "valueOptions": [
+              {
+                "value": "enabled",
+                "label": "wizard.steps.general.fields.urlDecodeReserved.option.enable"
+              },
+              {
+                "value": "skip",
+                "label": "wizard.steps.general.fields.urlDecodeReserved.option.skip"
+              }
+            ],
+            "value": 0,
+            "settingsKey": "url_decode_reserved",
+            "global": true
+          },
+          {
+            "type": "text",
+            "stringId": "general.maxReqBodySize",
+            "name": "wizard.steps.general.fields.maxReqBodySize.name",
+            "description": "wizard.steps.general.fields.maxReqBodySize.description",
+            "longDescription": "wizard.steps.general.fields.maxReqBodySize.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#max-body-size",
+            "regexErrorHint": "wizard.steps.general.fields.maxReqBodySize.regexErrorHint",
+            "placeholderText": "wizard.steps.general.fields.maxReqBodySize.placeholderText",
+            "validationRegex": "bytes_regex",
+            "value": "10m",
+            "ruleJsonPath": "max_req_body_size",
+            "minSize": 0,
+            "maxSize": 500
+          },
+          {
+            "type": "select",
+            "stringId": "general.chunkedBody.action",
+            "name": "wizard.steps.general.fields.chunkedBody.action.name",
+            "description": "wizard.steps.general.fields.chunkedBody.action.description",
+            "longDescription": "wizard.steps.general.fields.chunkedBody.action.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#big-uploads",
+            "valueOptions": [
+              {
+                "value": "deny",
+                "label": "wizard.steps.general.fields.chunkedBody.action.option.deny"
+              },
+              {
+                "value": "cache",
+                "label": "wizard.steps.general.fields.chunkedBody.action.option.cache"
+              },
+              {
+                "value": "allow",
+                "label": "wizard.steps.general.fields.chunkedBody.action.option.allow"
+              }
+            ],
+            "value": 0,
+            "ruleJsonPath": "chunked_body.action"
+          },
+          {
+            "type": "boolean",
+            "stringId": "general.sharding",
+            "name": "wizard.steps.general.fields.sharding.name",
+            "description": "wizard.steps.general.fields.sharding.description",
+            "longDescription": "wizard.steps.general.fields.sharding.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#sharding",
+            "value": false,
+            "ruleJsonPath": "sharding",
+            "conditionalFields": [
+              {
+                "type": "select",
+                "stringId": "general.sharding.hashSource",
+                "name": "wizard.steps.general.fields.sharding.hashSource.name",
+                "description": "wizard.steps.general.fields.sharding.hashSource.description",
+                "longDescription": "wizard.steps.general.fields.sharding.hashSource.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#sharding",
+                "global": false,
+                "valueOptions": [
+                  {
+                    "value": "url",
+                    "label": "wizard.steps.general.fields.sharding.hashSource.option.url"
+                  },
+                  {
+                    "value": "client_ip",
+                    "label": "wizard.steps.general.fields.sharding.hashSource.option.clientIp"
+                  }
+                ],
+                "value": 0,
+                "ruleJsonPath": "sharding_hash_source",
+                "conditionValue": [
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "type": "boolean",
+            "stringId": "general.backendRetry",
+            "name": "wizard.steps.general.fields.backendRetry.name",
+            "description": "wizard.steps.general.fields.backendRetry.description",
+            "longDescription": "wizard.steps.general.fields.backendRetry.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#backend-retry",
+            "value": false,
+            "ruleJsonPath": "backend_retry"
+          },
+          {
+            "type": "boolean",
+            "stringId": "general.enableUrlRewrite",
+            "name": "wizard.steps.general.fields.enableUrlRewrite.name",
+            "description": "wizard.steps.general.fields.enableUrlRewrite.description",
+            "longDescription": "wizard.steps.general.fields.enableUrlRewrite.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#url-rewrite",
+            "value": false,
+            "conditionalFields": [
+              {
+                "type": "text",
+                "stringId": "general.urlRewrite",
+                "name": "wizard.steps.general.fields.urlRewrite.name",
+                "description": "wizard.steps.general.fields.urlRewrite.description",
+                "longDescription": "wizard.steps.general.fields.urlRewrite.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#url-rewrite",
+                "regexErrorHint": "wizard.steps.general.fields.urlRewrite.regexErrorHint",
+                "placeholderText": "wizard.steps.general.fields.urlRewrite.placeholderText",
+                "validationRegex": "url_rewrite_path_regex",
+                "value": "/",
+                "ruleJsonPath": "url_rewrite",
+                "conditionValue": [
+                  true
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "wizard.steps.highAvailability.name",
+        "description": "wizard.steps.highAvailability.description",
+        "icon": "highAvailability",
+        "fields": [
+          {
+            "type": "boolean",
+            "stringId": "highAvailability.enableStaleIfError",
+            "name": "wizard.steps.highAvailability.fields.enableStaleIfError.name",
+            "description": "wizard.steps.highAvailability.fields.enableStaleIfError.description",
+            "longDescription": "wizard.steps.highAvailability.fields.enableStaleIfError.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-if-error",
+            "value": true,
+            "conditionalFields": [
+              {
+                "type": "text",
+                "stringId": "highAvailability.staleIfError.keepStaleDuration",
+                "name": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.name",
+                "description": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.description",
+                "longDescription": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#keep-stale-duration",
+                "regexErrorHint": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.regexErrorHint",
+                "placeholderText": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.placeholderText",
+                "validationRegex": "duration_regex",
+                "value": "10m",
+                "ruleJsonPath": "keep",
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "boolean",
+                "stringId": "highAvailability.staleIfError.staleRevive.enable",
+                "name": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.name",
+                "description": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.description",
+                "longDescription": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-revive",
+                "value": true,
+                "conditionValue": [
+                  true
+                ],
+                "conditionalFields": [
+                  {
+                    "type": "text",
+                    "stringId": "highAvailability.staleIfError.staleRevive.ttl",
+                    "name": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.name",
+                    "description": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.description",
+                    "longDescription": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.longDescription",
+                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-revive-ttl",
+                    "regexErrorHint": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.regexErrorHint",
+                    "placeholderText": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.placeholderText",
+                    "validationRegex": "duration_regex",
+                    "value": "1m",
+                    "ruleJsonPath": "stale_revive.ttl",
+                    "conditionValue": [
+                      true
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "stringId": "highAvailability.staleIfError.staleRevive.grace",
+                    "name": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.name",
+                    "description": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.description",
+                    "longDescription": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.longDescription",
+                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-revive-grace",
+                    "regexErrorHint": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.regexErrorHint",
+                    "placeholderText": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.placeholderText",
+                    "validationRegex": "duration_regex",
+                    "value": "10m",
+                    "ruleJsonPath": "stale_revive.grace",
+                    "conditionValue": [
+                      true
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "wizard.steps.queryParams.name",
+        "description": "wizard.steps.queryParams.description",
+        "icon": "queryParams",
+        "fields": [
+          {
+            "type": "select",
+            "stringId": "queryParams.removeQueryParameters.action",
+            "name": "wizard.steps.queryParams.fields.removeQueryParameters.action.name",
+            "description": "wizard.steps.queryParams.fields.removeQueryParameters.action.description",
+            "longDescription": "wizard.steps.queryParams.fields.removeQueryParameters.action.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/query-parameters#query-parameters",
+            "valueOptions": [
+              {
+                "value": "redirect",
+                "label": "wizard.steps.queryParams.fields.removeQueryParameters.action.option.redirect"
+              },
+              {
+                "value": "continue",
+                "label": "wizard.steps.queryParams.fields.removeQueryParameters.action.option.continue"
+              },
+              {
+                "value": "sort",
+                "label": "wizard.steps.queryParams.fields.removeQueryParameters.action.option.sort"
+              },
+              {
+                "value": "off",
+                "label": "wizard.steps.queryParams.fields.removeQueryParameters.action.option.off"
+              }
+            ],
+            "value": 2,
+            "ruleJsonPath": "query_cleanup.action"
+          }
+        ]
+      },
+      {
+        "name": "wizard.steps.headers.name",
+        "description": "wizard.steps.headers.description",
+        "icon": "headers",
+        "fields": [
+          {
+            "type": "select",
+            "stringId": "headers.onAuthHeader.action",
+            "name": "wizard.steps.headers.fields.onAuthHeader.action.name",
+            "description": "wizard.steps.headers.fields.onAuthHeader.action.description",
+            "longDescription": "wizard.steps.headers.fields.onAuthHeader.action.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#on-authorization-header",
+            "valueOptions": [
+              {
+                "value": "remove",
+                "label": "wizard.steps.headers.fields.onAuthHeader.action.option.remove"
+              },
+              {
+                "value": "pass",
+                "label": "wizard.steps.headers.fields.onAuthHeader.action.option.pass"
+              }
+            ],
+            "value": 1,
+            "ruleJsonPath": "on_authorization.action"
+          },
+          {
+            "type": "array",
+            "stringId": "headers.unsetHeadersForDelivery",
+            "name": "wizard.steps.headers.fields.unsetHeadersForDelivery.name",
+            "description": "wizard.steps.headers.fields.unsetHeadersForDelivery.description",
+            "longDescription": "wizard.steps.headers.fields.unsetHeadersForDelivery.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#remove-returned-headers",
+            "value": [],
+            "regexErrorHint": "wizard.steps.headers.fields.unsetHeadersForDelivery.regexErrorHint",
+            "placeholderText": "wizard.steps.headers.fields.unsetHeadersForDelivery.placeholderText",
+            "validationRegex": "header_key_regex",
+            "ruleJsonPath": "remove_hdr_deliver",
+            "maxSize": 5
+          },
+          {
+            "type": "array",
+            "stringId": "headers.hashHeaders",
+            "name": "wizard.steps.headers.fields.hashHeaders.name",
+            "description": "wizard.steps.headers.fields.hashHeaders.description",
+            "longDescription": "wizard.steps.headers.fields.hashHeaders.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#custom-cache-key-headers",
+            "value": [],
+            "regexErrorHint": "wizard.steps.headers.fields.hashHeaders.regexErrorHint",
+            "placeholderText": "wizard.steps.headers.fields.hashHeaders.placeholderText",
+            "validationRegex": "header_key_regex",
+            "ruleJsonPath": "hash_headers",
+            "maxSize": 5
+          },
+          {
+            "type": "multi-array",
+            "stringId": "headers.setBackendHeaders",
+            "name": "wizard.steps.headers.fields.setBackendHeaders.name",
+            "description": "wizard.steps.headers.fields.setBackendHeaders.description",
+            "longDescription": "wizard.steps.headers.fields.setBackendHeaders.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#set-request-headers",
+            "value": [],
+            "ruleJsonPath": "backend_set_headers",
+            "maxSize": 5,
+            "subFields": [
+              {
+                "type": "text",
+                "stringId": "headers.setBackendHeaders.name",
+                "name": "wizard.steps.headers.fields.setBackendHeaders.subfields.name.name",
+                "description": "wizard.steps.headers.fields.setBackendHeaders.subfields.name.description",
+                "regexErrorHint": "wizard.steps.headers.fields.setBackendHeaders.subfields.name.regexErrorHint",
+                "placeholderText": "wizard.steps.headers.fields.setBackendHeaders.subfields.name.placeholderText",
+                "validationRegex": "header_key_except_host_regex",
+                "ruleJsonPath": "name"
+              },
+              {
+                "type": "text",
+                "stringId": "headers.setBackendHeaders.value",
+                "name": "wizard.steps.headers.fields.setBackendHeaders.subfields.value.name",
+                "description": "wizard.steps.headers.fields.setBackendHeaders.subfields.value.description",
+                "regexErrorHint": "wizard.steps.headers.fields.setBackendHeaders.subfields.value.regexErrorHint",
+                "placeholderText": "wizard.steps.headers.fields.setBackendHeaders.subfields.value.placeholderText",
+                "validationRegex": "header_value_regex",
+                "ruleJsonPath": "value"
+              }
+            ]
+          },
+          {
+            "type": "multi-array",
+            "stringId": "headers.setHeadersForDelivery",
+            "name": "wizard.steps.headers.fields.setHeadersForDelivery.name",
+            "description": "wizard.steps.headers.fields.setHeadersForDelivery.description",
+            "longDescription": "wizard.steps.headers.fields.setHeadersForDelivery.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#set-response-headers",
+            "value": [],
+            "ruleJsonPath": "deliver_set_headers",
+            "maxSize": 16,
+            "subFields": [
+              {
+                "type": "text",
+                "stringId": "headers.setHeadersForDelivery.name",
+                "name": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.name.name",
+                "description": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.name.description",
+                "regexErrorHint": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.name.regexErrorHint",
+                "placeholderText": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.name.placeholderText",
+                "validationRegex": "header_key_regex",
+                "ruleJsonPath": "name"
+              },
+              {
+                "type": "text",
+                "stringId": "headers.setHeadersForDelivery.value",
+                "name": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.value.name",
+                "description": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.value.description",
+                "regexErrorHint": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.value.regexErrorHint",
+                "placeholderText": "wizard.steps.headers.fields.setHeadersForDelivery.subfields.value.placeholderText",
+                "validationRegex": "header_value_regex",
+                "ruleJsonPath": "value"
+              }
+            ]
+          },
+          {
+            "type": "boolean",
+            "stringId": "headers.trueClientIp",
+            "name": "wizard.steps.headers.fields.trueClientIp.name",
+            "description": "wizard.steps.headers.fields.trueClientIp.description",
+            "longDescription": "wizard.steps.headers.fields.trueClientIp.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#true-client-ip",
+            "value": false,
+            "settingsKey": "pass_client_ip",
+            "global": true
+          }
+        ]
+      },
+      {
+        "name": "wizard.steps.cookies.name",
+        "description": "wizard.steps.cookies.description",
+        "icon": "cookies",
+        "fields": [
+          {
+            "type": "select",
+            "stringId": "cookies.onCookie.action",
+            "name": "wizard.steps.cookies.fields.onCookie.action.name",
+            "description": "wizard.steps.cookies.fields.onCookie.action.description",
+            "longDescription": "wizard.steps.cookies.fields.onCookie.action.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/cookies#on-cookie",
+            "valueOptions": [
+              {
+                "value": "pass",
+                "label": "wizard.steps.cookies.fields.onCookie.action.option.pass"
+              },
+              {
+                "value": "remove",
+                "label": "wizard.steps.cookies.fields.onCookie.action.option.remove"
+              },
+              {
+                "value": "allow_list",
+                "label": "wizard.steps.cookies.fields.onCookie.action.option.allowList"
+              }
+            ],
+            "value": 1,
+            "ruleJsonPath": "cookie.action",
+            "conditionalFields": [
+              {
+                "type": "array",
+                "stringId": "cookies.onCookie.allowList",
+                "name": "wizard.steps.cookies.fields.onCookie.allowList.name",
+                "description": "wizard.steps.cookies.fields.onCookie.allowList.description",
+                "longDescription": "wizard.steps.cookies.fields.onCookie.allowList.longDescription",
+                "value": [],
+                "regexErrorHint": "wizard.steps.cookies.fields.onCookie.allowList.regexErrorHint",
+                "placeholderText": "wizard.steps.cookies.fields.onCookie.allowList.placeholderText",
+                "validationRegex": "cookie_key_regex",
+                "ruleJsonPath": "cookie.allow_list",
+                "maxSize": 5,
+                "conditionValue": [
+                  2
+                ]
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "stringId": "cookies.onSetCookie.action",
+            "name": "wizard.steps.cookies.fields.onSetCookie.action.name",
+            "description": "wizard.steps.cookies.fields.onSetCookie.action.description",
+            "longDescription": "wizard.steps.cookies.fields.onSetCookie.action.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/cookies#on-set-cookie",
+            "valueOptions": [
+              {
+                "value": "pass",
+                "label": "wizard.steps.cookies.fields.onSetCookie.action.option.pass"
+              },
+              {
+                "value": "remove",
+                "label": "wizard.steps.cookies.fields.onSetCookie.action.option.remove"
+              },
+              {
+                "value": "allow_list",
+                "label": "wizard.steps.cookies.fields.onSetCookie.action.option.allowList"
+              },
+              {
+                "value": "deny_list",
+                "label": "wizard.steps.cookies.fields.onSetCookie.action.option.denyList"
+              }
+            ],
+            "value": 0,
+            "ruleJsonPath": "set_cookie.action",
+            "conditionalFields": [
+              {
+                "type": "array",
+                "stringId": "cookies.onSetCookie.allowList",
+                "name": "wizard.steps.cookies.fields.onSetCookie.allowList.name",
+                "description": "wizard.steps.cookies.fields.onSetCookie.allowList.description",
+                "longDescription": "wizard.steps.cookies.fields.onSetCookie.allowList.longDescription",
+                "value": [],
+                "regexErrorHint": "wizard.steps.cookies.fields.onSetCookie.allowList.regexErrorHint",
+                "placeholderText": "wizard.steps.cookies.fields.onSetCookie.allowList.placeholderText",
+                "validationRegex": "cookie_key_regex",
+                "ruleJsonPath": "set_cookie.allow_list",
+                "maxSize": 5,
+                "conditionValue": [
+                  2
+                ]
+              },
+              {
+                "type": "array",
+                "stringId": "cookies.onSetCookie.denyList",
+                "name": "wizard.steps.cookies.fields.onSetCookie.denyList.name",
+                "description": "wizard.steps.cookies.fields.onSetCookie.denyList.description",
+                "longDescription": "wizard.steps.cookies.fields.onSetCookie.denyList.longDescription",
+                "value": [],
+                "regexErrorHint": "wizard.steps.cookies.fields.onSetCookie.denyList.regexErrorHint",
+                "placeholderText": "wizard.steps.cookies.fields.onSetCookie.denyList.placeholderText",
+                "validationRegex": "cookie_key_regex",
+                "ruleJsonPath": "set_cookie.deny_list",
+                "maxSize": 5,
+                "conditionValue": [
+                  3
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "wizard.steps.security.name",
+        "description": "wizard.steps.security.description",
+        "icon": "security",
+        "hidden": true,
+        "fields": [
+          {
+            "type": "boolean",
+            "stringId": "security.httpsRedirect",
+            "name": "wizard.steps.security.fields.httpsRedirect.name",
+            "description": "wizard.steps.security.fields.httpsRedirect.description",
+            "longDescription": "wizard.steps.security.fields.httpsRedirect.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#https-redirect",
+            "value": true,
+            "ruleJsonPath": "https_redirect"
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.hsts",
+            "name": "wizard.steps.security.fields.hsts.name",
+            "description": "wizard.steps.security.fields.hsts.description",
+            "longDescription": "wizard.steps.security.fields.hsts.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#enable-hsts",
+            "value": true,
+            "settingsKey": "hsts",
+            "global": true
+          },
+          {
+            "type": "select",
+            "stringId": "security.botVerifySettings",
+            "name": "wizard.steps.security.fields.botVerifySettings.name",
+            "description": "wizard.steps.security.fields.botVerifySettings.description",
+            "longDescription": "wizard.steps.security.fields.botVerifySettings.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-verification",
+            "valueOptions": [
+              {
+                "value": "enabled",
+                "label": "wizard.steps.security.fields.botVerifySettings.option.enable"
+              },
+              {
+                "value": "disabled",
+                "label": "wizard.steps.security.fields.botVerifySettings.option.disable"
+              }
+            ],
+            "value": 0,
+            "ruleJsonPath": "bot_verify",
+            "global": true
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.enableHotlinkProtection",
+            "name": "wizard.steps.security.fields.enableHotlinkProtection.name",
+            "description": "wizard.steps.security.fields.enableHotlinkProtection.description",
+            "longDescription": "wizard.steps.security.fields.enableHotlinkProtection.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#hotlink-protection",
+            "value": false,
+            "ruleJsonPath": "hotlink_protection.enable",
+            "conditionalFields": [
+              {
+                "type": "csv",
+                "stringId": "security.hotlinkProtection.friends",
+                "name": "wizard.steps.security.fields.hotlinkProtection.friends.name",
+                "description": "wizard.steps.security.fields.hotlinkProtection.friends.description",
+                "longDescription": "wizard.steps.security.fields.hotlinkProtection.friends.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#hotlink-friends",
+                "value": "",
+                "regexErrorHint": "wizard.steps.security.fields.hotlinkProtection.friends.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.hotlinkProtection.friends.placeholderText",
+                "validationRegex": "fqdn_regex",
+                "ruleJsonPath": "hotlink_protection.friends",
+                "conditionValue": [
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.asnFilter.enable",
+            "name": "wizard.steps.security.fields.asnFilter.enable.name",
+            "description": "wizard.steps.security.fields.asnFilter.enable.description",
+            "longDescription": "wizard.steps.security.fields.asnFilter.enable.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#asn-filter",
+            "value": false,
+            "conditionalFields": [
+              {
+                "type": "boolean",
+                "stringId": "security.asnFilter.allowVerifiedBots",
+                "name": "wizard.steps.security.fields.asnFilter.allowVerifiedBots.name",
+                "description": "wizard.steps.security.fields.asnFilter.allowVerifiedBots.description",
+                "longDescription": "wizard.steps.security.fields.asnFilter.allowVerifiedBots.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#asn-filter",
+                "value": true,
+                "ruleJsonPath": "asn_filter.allow_verified_bots",
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "select",
+                "stringId": "security.asnFilter.action",
+                "name": "wizard.steps.security.fields.asnFilter.action.name",
+                "description": "wizard.steps.security.fields.asnFilter.action.description",
+                "longDescription": "wizard.steps.security.fields.asnFilter.action.longDescription",
+                "valueOptions": [
+                  {
+                    "value": "429",
+                    "label": "wizard.steps.security.fields.asnFilter.action.option.429"
+                  },
+                  {
+                    "value": "404",
+                    "label": "wizard.steps.security.fields.asnFilter.action.option.404"
+                  },
+                  {
+                    "value": "403",
+                    "label": "wizard.steps.security.fields.asnFilter.action.option.403"
+                  }
+                ],
+                "value": 1,
+                "ruleJsonPath": "asn_filter.action",
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "select",
+                "stringId": "security.asnFilter.type",
+                "name": "wizard.steps.security.fields.asnFilter.type.name",
+                "description": "wizard.steps.security.fields.asnFilter.type.description",
+                "longDescription": "wizard.steps.security.fields.asnFilter.type.longDescription",
+                "valueOptions": [
+                  {
+                    "value": "country_deny_list",
+                    "label": "wizard.steps.security.fields.asnFilter.type.option.country_deny_list"
+                  },
+                  {
+                    "value": "country_allow_list",
+                    "label": "wizard.steps.security.fields.asnFilter.type.option.country_allow_list"
+                  },
+                  {
+                    "value": "asn_deny_list",
+                    "label": "wizard.steps.security.fields.asnFilter.type.option.asn_deny_list"
+                  },
+                  {
+                    "value": "asn_allow_list",
+                    "label": "wizard.steps.security.fields.asnFilter.type.option.asn_allow_list"
+                  }
+                ],
+                "value": 0,
+                "ruleJsonPath": "asn_filter.type",
+                "conditionValue": [
+                  true
+                ],
+                "conditionalFields": [
+                  {
+                    "type": "country-select",
+                    "stringId": "security.asnFilter.countryDenyList",
+                    "name": "wizard.steps.security.fields.asnFilter.countryDenyList.name",
+                    "description": "wizard.steps.security.fields.asnFilter.countryDenyList.description",
+                    "longDescription": "wizard.steps.security.fields.asnFilter.countryDenyList.longDescription",
+                    "value": [],
+                    "ruleJsonPath": "asn_filter.country_deny_list",
+                    "conditionValue": [
+                      0
+                    ]
+                  },
+                  {
+                    "type": "country-select",
+                    "stringId": "security.asnFilter.countryAllowList",
+                    "name": "wizard.steps.security.fields.asnFilter.countryAllowList.name",
+                    "description": "wizard.steps.security.fields.asnFilter.countryAllowList.description",
+                    "longDescription": "wizard.steps.security.fields.asnFilter.countryAllowList.longDescription",
+                    "value": [],
+                    "ruleJsonPath": "asn_filter.country_allow_list",
+                    "conditionValue": [
+                      1
+                    ]
+                  },
+                  {
+                    "type": "csv",
+                    "stringId": "security.asnFilter.asnDenyList",
+                    "name": "wizard.steps.security.fields.asnFilter.asnDenyList.name",
+                    "description": "wizard.steps.security.fields.asnFilter.asnDenyList.description",
+                    "longDescription": "wizard.steps.security.fields.asnFilter.asnDenyList.longDescription",
+                    "regexErrorHint": "wizard.steps.security.fields.asnFilter.asnDenyList.regexErrorHint",
+                    "placeholderText": "wizard.steps.security.fields.asnFilter.asnDenyList.placeholderText",
+                    "validationRegex": "asn_regex",
+                    "value": "",
+                    "ruleJsonPath": "asn_filter.asn_deny_list",
+                    "conditionValue": [
+                      2
+                    ]
+                  },
+                  {
+                    "type": "csv",
+                    "stringId": "security.asnFilter.asnAllowList",
+                    "name": "wizard.steps.security.fields.asnFilter.asnAllowList.name",
+                    "description": "wizard.steps.security.fields.asnFilter.asnAllowList.description",
+                    "longDescription": "wizard.steps.security.fields.asnFilter.asnAllowList.longDescription",
+                    "regexErrorHint": "wizard.steps.security.fields.asnFilter.asnAllowList.regexErrorHint",
+                    "placeholderText": "wizard.steps.security.fields.asnFilter.asnAllowList.placeholderText",
+                    "validationRegex": "asn_regex",
+                    "value": "",
+                    "ruleJsonPath": "asn_filter.asn_allow_list",
+                    "conditionValue": [
+                      3
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "stringId": "security.botProtection.mode",
+            "name": "wizard.steps.security.fields.botProtection.mode.name",
+            "description": "wizard.steps.security.fields.botProtection.mode.description",
+            "longDescription": "wizard.steps.security.fields.botProtection.mode.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-protection-standard",
+            "valueOptions": [
+              {
+                "value": "captcha",
+                "label": "wizard.steps.security.fields.botProtection.mode.option.captcha"
+              },
+              {
+                "value": "pow",
+                "label": "wizard.steps.security.fields.botProtection.mode.option.pow"
+              },
+              {
+                "value": "both",
+                "label": "wizard.steps.security.fields.botProtection.mode.option.both"
+              }
+            ],
+            "value": 2,
+            "settingsKey": "bot_protection_mode",
+            "global": true,
+            "conditionalFields": [
+              {
+                "type": "text",
+                "stringId": "security.botProtection.captchaTtl",
+                "name": "wizard.steps.security.fields.botProtection.captchaTtl.name",
+                "description": "wizard.steps.security.fields.botProtection.captchaTtl.description",
+                "longDescription": "wizard.steps.security.fields.botProtection.captchaTtl.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-protection-standard",
+                "regexErrorHint": "wizard.steps.security.fields.botProtection.captchaTtl.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.botProtection.captchaTtl.placeholderText",
+                "validationRegex": "duration_regex",
+                "value": "1h",
+                "settingsKey": "captcha_ttl",
+                "global": true,
+                "conditionValue": [
+                  0,
+                  2
+                ]
+              }
+            ]
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.botProtection.vpow",
+            "name": "wizard.steps.security.fields.botProtection.vpow.name",
+            "description": "wizard.steps.security.fields.botProtection.vpow.description",
+            "longDescription": "wizard.steps.security.fields.botProtection.vpow.longDescription",
+            "pricing": "wizard.steps.security.fields.botProtection.vpow.pricing",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-protection-standard",
+            "value": false,
+            "ruleJsonPath": "VCDN-proof-of-work",
+            "usageMetric": "botprotection-activation"
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.waf.enable",
+            "name": "wizard.steps.security.fields.waf.enable.name",
+            "description": "wizard.steps.security.fields.waf.enable.description",
+            "longDescription": "wizard.steps.security.fields.waf.enable.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+            "value": false,
+            "settingsKey": "enable_waf",
+            "ruleJsonPath": "waf_config.run",
+            "global": false,
+            "conditionalFields": [
+              {
+                "type": "select",
+                "stringId": "security.waf.mode",
+                "name": "wizard.steps.security.fields.waf.mode.name",
+                "description": "wizard.steps.security.fields.waf.mode.description",
+                "longDescription": "wizard.steps.security.fields.waf.mode.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "valueOptions": [
+                  {
+                    "value": "detect",
+                    "label": "wizard.steps.security.fields.waf.mode.option.detect"
+                  },
+                  {
+                    "value": "deny",
+                    "label": "wizard.steps.security.fields.waf.mode.option.deny"
+                  }
+                ],
+                "value": 1,
+                "settingsKey": "waf_mode",
+                "global": true,
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "boolean",
+                "stringId": "security.waf.owasp",
+                "name": "wizard.steps.security.fields.waf.owasp.name",
+                "description": "wizard.steps.security.fields.waf.owasp.description",
+                "longDescription": "wizard.steps.security.fields.waf.owasp.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "value": false,
+                "settingsKey": "enable_waf_owasp_core",
+                "global": true,
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "boolean",
+                "stringId": "security.waf.atomic",
+                "name": "wizard.steps.security.fields.waf.atomic.name",
+                "description": "wizard.steps.security.fields.waf.atomic.description",
+                "longDescription": "wizard.steps.security.fields.waf.atomic.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "value": false,
+                "settingsKey": "enable_waf_atomic",
+                "global": true,
+                "conditionValue": [
+                  true
+                ],
+                "usageMetric": "waf-activation",
+                "pricing": "wizard.steps.security.fields.waf.atomic.pricing"
+              },
+              {
+                "type": "csv",
+                "stringId": "security.waf.skipRuleId",
+                "name": "wizard.steps.security.fields.waf.skipRuleId.name",
+                "description": "wizard.steps.security.fields.waf.skipRuleId.description",
+                "longDescription": "wizard.steps.security.fields.waf.skipRuleId.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "value": "",
+                "regexErrorHint": "wizard.steps.security.fields.waf.skipRuleId.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.waf.skipRuleId.placeholderText",
+                "validationRegex": "number_regex",
+                "settingsKey": "waf_skip_rule_by_id",
+                "global": true,
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "boolean",
+                "stringId": "security.waf.bypass.enable",
+                "name": "wizard.steps.security.fields.waf.bypassAclEnable.name",
+                "description": "wizard.steps.security.fields.waf.bypassAclEnable.description",
+                "longDescription": "wizard.steps.security.fields.waf.bypassAclEnable.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+                "value": false,
+                "ruleJsonPath": "waf_config.acl_bypass",
+                "global": false,
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "csv",
+                "stringId": "security.waf.bypass.acl",
+                "name": "wizard.steps.security.fields.waf.bypassAcl.name",
+                "description": "wizard.steps.security.fields.waf.bypassAcl.description",
+                "longDescription": "wizard.steps.security.fields.waf.bypassAcl.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+                "value": "",
+                "regexErrorHint": "wizard.steps.security.fields.waf.bypassAcl.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.waf.bypassAcl.placeholderText",
+                "validationRegex": "acl_entry_regex",
+                "aclKey": "acl_waf_bypass",
+                "global": true,
+                "conditionValue": [
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.allowList.enable",
+            "name": "wizard.steps.security.fields.requireAdminAcl.name",
+            "description": "wizard.steps.security.fields.requireAdminAcl.description",
+            "longDescription": "wizard.steps.security.fields.requireAdminAcl.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "value": false,
+            "ruleJsonPath": "require_admin",
+            "global": false
+          },
+          {
+            "type": "csv",
+            "stringId": "security.allowList.acl",
+            "name": "wizard.steps.security.fields.adminAcl.name",
+            "description": "wizard.steps.security.fields.adminAcl.description",
+            "longDescription": "wizard.steps.security.fields.adminAcl.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "value": "",
+            "regexErrorHint": "wizard.steps.security.fields.adminAcl.regexErrorHint",
+            "placeholderText": "wizard.steps.security.fields.adminAcl.placeholderText",
+            "validationRegex": "acl_entry_regex",
+            "aclKey": "acl_admins",
+            "global": true
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.denyList.enable",
+            "name": "wizard.steps.security.fields.alwaysBlock.enable.name",
+            "description": "wizard.steps.security.fields.alwaysBlock.enable.description",
+            "longDescription": "wizard.steps.security.fields.alwaysBlock.enable.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "value": false,
+            "global": false,
+            "conditionalFields": [
+              {
+                "type": "select",
+                "stringId": "security.denyList.action",
+                "name": "wizard.steps.security.fields.alwaysBlock.action.name",
+                "description": "wizard.steps.security.fields.alwaysBlock.action.description",
+                "longDescription": "wizard.steps.security.fields.alwaysBlock.action.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+                "valueOptions": [
+                  {
+                    "value": "400",
+                    "label": "wizard.steps.security.fields.alwaysBlock.action.option.400"
+                  },
+                  {
+                    "value": "403",
+                    "label": "wizard.steps.security.fields.alwaysBlock.action.option.403"
+                  },
+                  {
+                    "value": "404",
+                    "label": "wizard.steps.security.fields.alwaysBlock.action.option.404"
+                  }
+                ],
+                "value": 1,
+                "ruleJsonPath": "always_block",
+                "conditionValue": [
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "type": "csv",
+            "stringId": "security.denyList.acl",
+            "name": "wizard.steps.security.fields.alwaysBlockAcl.name",
+            "description": "wizard.steps.security.fields.alwaysBlockAcl.description",
+            "longDescription": "wizard.steps.security.fields.alwaysBlockAcl.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "value": "",
+            "regexErrorHint": "wizard.steps.security.fields.alwaysBlockAcl.regexErrorHint",
+            "placeholderText": "wizard.steps.security.fields.alwaysBlockAcl.placeholderText",
+            "validationRegex": "acl_entry_regex",
+            "aclKey": "acl_always_block",
+            "global": true
+          },
+          {
+            "type": "boolean",
+            "stringId": "security.ratelimit.enable",
+            "name": "wizard.steps.security.fields.ratelimit.enable.name",
+            "description": "wizard.steps.security.fields.ratelimit.enable.description",
+            "longDescription": "wizard.steps.security.fields.ratelimit.enable.longDescription",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#rate-limiting",
+            "value": false,
+            "global": true,
+            "conditionalFields": [
+              {
+                "type": "float",
+                "stringId": "security.ratelimit.clientRate",
+                "name": "wizard.steps.security.fields.ratelimit.clientRate.name",
+                "description": "wizard.steps.security.fields.ratelimit.clientRate.description",
+                "longDescription": "wizard.steps.security.fields.ratelimit.clientRate.longDescription",
+                "regexErrorHint": "wizard.steps.security.fields.ratelimit.clientRate.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.ratelimit.clientRate.regexErrorHint",
+                "value": 2,
+                "conditionValue": [
+                  true
+                ],
+                "settingsKey": "rate_limit_client_rate",
+                "global": true,
+                "minSize": 0
+              },
+              {
+                "type": "text",
+                "stringId": "security.ratelimit.clientCreditLimit",
+                "name": "wizard.steps.security.fields.ratelimit.clientCreditLimit.name",
+                "description": "wizard.steps.security.fields.ratelimit.clientCreditLimit.description",
+                "longDescription": "wizard.steps.security.fields.ratelimit.clientCreditLimit.longDescription",
+                "regexErrorHint": "wizard.steps.security.fields.ratelimit.clientCreditLimit.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.ratelimit.clientCreditLimit.placeholderText",
+                "validationRegex": "duration_regex",
+                "value": "1m",
+                "settingsKey": "rate_limit_client_credit",
+                "global": true,
+                "conditionValue": [
+                  true
+                ]
+              },
+              {
+                "type": "float",
+                "stringId": "security.ratelimit.fetchRate",
+                "name": "wizard.steps.security.fields.ratelimit.fetchRate.name",
+                "description": "wizard.steps.security.fields.ratelimit.fetchRate.description",
+                "longDescription": "wizard.steps.security.fields.ratelimit.fetchRate.longDescription",
+                "regexErrorHint": "wizard.steps.security.fields.ratelimit.fetchRate.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.ratelimit.fetchRate.regexErrorHint",
+                "value": 1,
+                "conditionValue": [
+                  true
+                ],
+                "settingsKey": "rate_limit_fetch_rate",
+                "global": true,
+                "minSize": 0
+              },
+              {
+                "type": "text",
+                "stringId": "security.ratelimit.fetchCreditLimit",
+                "name": "wizard.steps.security.fields.ratelimit.fetchCreditLimit.name",
+                "description": "wizard.steps.security.fields.ratelimit.fetchCreditLimit.description",
+                "longDescription": "wizard.steps.security.fields.ratelimit.fetchCreditLimit.longDescription",
+                "regexErrorHint": "wizard.steps.security.fields.ratelimit.fetchCreditLimit.regexErrorHint",
+                "placeholderText": "wizard.steps.security.fields.ratelimit.fetchCreditLimit.placeholderText",
+                "validationRegex": "duration_regex",
+                "value": "1m",
+                "settingsKey": "rate_limit_fetch_credit",
+                "global": true,
+                "conditionValue": [
+                  true
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "wizard.steps.optimisation.name",
+        "description": "wizard.steps.optimisation.description",
+        "icon": "optimisation",
+        "fields": [
+          {
+            "type": "boolean",
+            "stringId": "optimisation.imageopt.webp",
+            "name": "wizard.steps.optimisation.fields.imageopt.webp.name",
+            "description": "wizard.steps.optimisation.fields.imageopt.webp.description",
+            "longDescription": "wizard.steps.optimisation.fields.imageopt.webp.longDescription",
+            "value": true,
+            "ruleJsonPath": "image_optimize.webp",
+            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#image-optimisation",
+            "conditionalFields": [
+              {
+                "type": "integer",
+                "stringId": "optimisation.imageopt.quality",
+                "name": "wizard.steps.optimisation.fields.imageopt.quality.name",
+                "description": "wizard.steps.optimisation.fields.imageopt.quality.description",
+                "longDescription": "wizard.steps.optimisation.fields.imageopt.quality.longDescription",
+                "regexErrorHint": "wizard.steps.optimisation.fields.imageopt.quality.regexErrorHint",
+                "value": 80,
+                "conditionValue": [
+                  true
+                ],
+                "ruleJsonPath": "image_optimize.quality",
+                "maxSize": 100,
+                "minSize": 0
+              },
+              {
+                "type": "boolean",
+                "stringId": "optimisation.imageopt.imagetrans.enable",
+                "name": "wizard.steps.optimisation.fields.imagetrans.enable.name",
+                "description": "wizard.steps.optimisation.fields.imagetrans.enable.description",
+                "longDescription": "wizard.steps.optimisation.fields.imagetrans.enable.longDescription",
+                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#image-transformation",
+                "value": false,
+                "conditionValue": [
+                  true
+                ],
+                "usageMetric": "requests",
+                "pricing": "wizard.steps.optimisation.fields.imagetrans.enable.pricing",
+                "conditionalFields": [
+                  {
+                    "type": "text",
+                    "stringId": "optimisation.imageopt.imagetrans.widthParam",
+                    "name": "wizard.steps.optimisation.fields.imagetrans.widthParam.name",
+                    "description": "wizard.steps.optimisation.fields.imagetrans.widthParam.description",
+                    "longDescription": "wizard.steps.optimisation.fields.imagetrans.widthParam.longDescription",
+                    "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.widthParam.regexErrorHint",
+                    "placeholderText": "wizard.steps.optimisation.fields.imagetrans.widthParam.placeholderText",
+                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#width-parameter",
+                    "validationRegex": "url_param_regex",
+                    "value": "width",
+                    "ruleJsonPath": "image_optimize.width_param",
+                    "conditionValue": [
+                      true
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "stringId": "optimisation.imageopt.imagetrans.heightParam",
+                    "name": "wizard.steps.optimisation.fields.imagetrans.heightParam.name",
+                    "description": "wizard.steps.optimisation.fields.imagetrans.heightParam.description",
+                    "longDescription": "wizard.steps.optimisation.fields.imagetrans.heightParam.longDescription",
+                    "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.heightParam.regexErrorHint",
+                    "placeholderText": "wizard.steps.optimisation.fields.imagetrans.heightParam.placeholderText",
+                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#height-parameter",
+                    "validationRegex": "url_param_regex",
+                    "value": "height",
+                    "ruleJsonPath": "image_optimize.height_param",
+                    "conditionValue": [
+                      true
+                    ]
+                  },
+                  {
+                    "type": "csv",
+                    "stringId": "optimisation.imageopt.imagetrans.allowedDimensions",
+                    "name": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.name",
+                    "description": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.description",
+                    "longDescription": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.longDescription",
+                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#allowed-dimensions",
+                    "value": "",
+                    "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.regexErrorHint",
+                    "placeholderText": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.placeholderText",
+                    "validationRegex": "dimensions_regex",
+                    "ruleJsonPath": "image_optimize.allowed_dimensions",
+                    "conditionValue": [
+                      true
+                    ]
+                  },
+                  {
+                    "type": "csv",
+                    "stringId": "optimisation.imageopt.imagetrans.allowedWidths",
+                    "name": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.name",
+                    "description": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.description",
+                    "longDescription": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.longDescription",
+                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#allowed-dimensions",
+                    "value": "",
+                    "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.regexErrorHint",
+                    "placeholderText": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.placeholderText",
+                    "validationRegex": "number_regex",
+                    "ruleJsonPath": "image_optimize.allowed_widths",
+                    "conditionValue": [
+                      true
+                    ]
+                  },
+                  {
+                    "type": "csv",
+                    "stringId": "optimisation.imageopt.imagetrans.allowedHeights",
+                    "name": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.name",
+                    "description": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.description",
+                    "longDescription": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.longDescription",
+                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#allowed-dimensions",
+                    "value": "",
+                    "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.regexErrorHint",
+                    "placeholderText": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.placeholderText",
+                    "validationRegex": "number_regex",
+                    "ruleJsonPath": "image_optimize.allowed_heights",
+                    "conditionValue": [
+                      true
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "customRules": []
+  },
+  "answerName": "wizard.webapi.answers.standard.name",
+  "answerDescription": "wizard.webapi.answers.standard.description",
+  "answerIcon": "demoAnswerIcon"
+}

@@ -1,0 +1,9 @@
+terraform-provider-varnish
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+dist/
+test/
+# the module is not vendored; keep a local `go mod vendor` out of the repo
+vendor/
