@@ -1,4 +1,4 @@
-## 0.1.0 (Unreleased)
+## 0.1.0 (2026-10-19)
 
 Initial release, with support for Varnish CDN.
 
