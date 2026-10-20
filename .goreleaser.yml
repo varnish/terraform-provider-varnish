@@ -65,9 +65,9 @@ signs:
       - "--detach-sign"
       - "${artifact}"
 
-# the release already exists when the workflow runs
+# the release already exists when the workflow runs, keep its notes
 release:
-  mode: replace
+  mode: keep-existing
   extra_files:
     - glob: terraform-registry-manifest.json
       name_template: "{{ .ProjectName }}_{{ .Version }}_manifest.json"
