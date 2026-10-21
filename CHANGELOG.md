@@ -1,3 +1,9 @@
+## 0.1.1 (2026-10-21)
+
+SECURITY:
+
+* Built with Go 1.27.3, which includes security fixes to `crypto/x509`.
+
 ## 0.1.0 (2026-10-19)
 
 Initial release, with support for Varnish CDN.
