@@ -80,7 +80,7 @@ resource "varnish_cdn_service" "web" {
 
 - `created_at` (String) Creation timestamp (RFC3339).
 - `id` (String) Server-assigned service identifier.
-- `name` (String) Service name (derived server-side from the first domain).
+- `name` (String) Service name. Set from the first domain at creation. It can be renamed in the UI.
 - `origin_secret` (String, Sensitive) Shared secret the CDN sends to origins.
 - `status` (String) Service status (deployed/undeployed/unknown).
 - `updated_at` (String) Last update timestamp (RFC3339).
