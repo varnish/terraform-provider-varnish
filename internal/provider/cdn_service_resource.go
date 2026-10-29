@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
@@ -97,8 +98,9 @@ func (r *cdnServiceResource) Schema(_ context.Context, _ resource.SchemaRequest,
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"name": schema.StringAttribute{
-				Computed:    true,
-				Description: "Service name (derived server-side from the first domain).",
+				Computed:      true,
+				Description:   "Service name. Set from the first domain at creation. It can be renamed in the UI.",
+				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"wizard_answer_template_id": schema.Int64Attribute{
 				Optional: true,
@@ -108,34 +110,38 @@ func (r *cdnServiceResource) Schema(_ context.Context, _ resource.SchemaRequest,
 					"Changing it recreates the service, except when state holds no value yet (services created before the " +
 					"API recorded the template id report none): setting it then only adopts it into state.",
 				PlanModifiers: []planmodifier.Int64{
+					// first, so an omitted value is not unknown != state for RequiresReplaceIf
+					int64planmodifier.UseStateForUnknown(),
 					int64planmodifier.RequiresReplaceIf(cdnRequiresReplaceAnswerTemplate,
 						cdnAnswerTemplateReplaceDesc, cdnAnswerTemplateReplaceDesc),
-					int64planmodifier.UseStateForUnknown(),
 				},
 			},
-			"deployed": schema.BoolAttribute{
-				Optional:    true,
-				Computed:    true,
-				Description: "Whether the service is deployed. Services auto-deploy on create.",
+			cdnDeployedAttrName: schema.BoolAttribute{
+				Optional:      true,
+				Computed:      true,
+				Description:   "Whether the service is deployed. Services auto-deploy on create.",
+				PlanModifiers: []planmodifier.Bool{boolplanmodifier.UseStateForUnknown()},
 			},
 			"origin_secret": schema.StringAttribute{
-				Computed:    true,
-				Sensitive:   true,
-				Description: "Shared secret the CDN sends to origins.",
+				Computed:      true,
+				Sensitive:     true,
+				Description:   "Shared secret the CDN sends to origins.",
+				PlanModifiers: keepString,
 			},
-			"status": schema.StringAttribute{
+			cdnStatusAttrName: schema.StringAttribute{
 				Computed:    true,
 				Description: "Service status (deployed/undeployed/unknown).",
 			},
 			"created_at": schema.StringAttribute{
-				Computed:    true,
-				Description: "Creation timestamp (RFC3339).",
+				Computed:      true,
+				Description:   "Creation timestamp (RFC3339).",
+				PlanModifiers: keepString,
 			},
 			"updated_at": schema.StringAttribute{
 				Computed:    true,
 				Description: "Last update timestamp (RFC3339).",
 			},
-			"settings": cdnSettingsAttribute(),
+			cdnSettingsAttrName: cdnSettingsAttribute(),
 		},
 		Blocks: map[string]schema.Block{
 			"origin": schema.ListNestedBlock{
@@ -182,7 +188,7 @@ func (r *cdnServiceResource) Schema(_ context.Context, _ resource.SchemaRequest,
 					},
 				},
 			},
-			"domain": schema.ListNestedBlock{
+			cdnDomainAttrName: schema.ListNestedBlock{
 				Description: "Domains served by this service.",
 				Validators:  []validator.List{listvalidator.SizeAtLeast(1)},
 				NestedObject: schema.NestedBlockObject{
@@ -307,6 +313,7 @@ func (r *cdnServiceResource) ValidateConfig(ctx context.Context, req resource.Va
 func (r *cdnServiceResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	var plan cdnServiceModel
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
+	configured := cdnConfigSettings(ctx, req.Config, &resp.Diagnostics)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -367,7 +374,7 @@ func (r *cdnServiceResource) Create(ctx context.Context, req resource.CreateRequ
 		}
 	}
 
-	settings, sdiags := r.applySettings(ctx, svc.ID, plan.Settings)
+	settings, sdiags := r.applySettings(ctx, svc.ID, configured)
 	resp.Diagnostics.Append(sdiags...)
 	if sdiags.HasError() {
 		rollback()
@@ -490,9 +497,10 @@ func (r *cdnServiceResource) refreshSettings(ctx context.Context, id int, state 
 }
 
 func (r *cdnServiceResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan, state cdnServiceModel
+	var plan, state, config cdnServiceModel
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -547,10 +555,11 @@ func (r *cdnServiceResource) Update(ctx context.Context, req resource.UpdateRequ
 		}
 	}
 
+	// plan.Settings holds state values for unset leaves, so apply only what config sets
 	var settings *client.CDNWizardSettings
 	if !plan.Settings.Equal(state.Settings) {
 		var sdiags diag.Diagnostics
-		settings, sdiags = r.applySettings(ctx, id, plan.Settings)
+		settings, sdiags = r.applySettings(ctx, id, config.Settings)
 		resp.Diagnostics.Append(sdiags...)
 		if sdiags.HasError() {
 			return
@@ -565,10 +574,17 @@ func (r *cdnServiceResource) Update(ctx context.Context, req resource.UpdateRequ
 
 	newState, diags := cdnServiceAPIToModel(svc, plan)
 	resp.Diagnostics.Append(diags...)
+	cdnKeepPlanned(config, plan, &newState)
 	if settings != nil {
 		settingsObj, sdiags := cdnSettingsFromAPI(ctx, settings)
 		resp.Diagnostics.Append(sdiags...)
-		newState.Settings = settingsObj
+		if !sdiags.HasError() {
+			newState.Settings = settingsObj
+			kept := cdnSettingsKeepPlanned(ctx, config.Settings, plan.Settings, settingsObj, &resp.Diagnostics)
+			if obj, ok := kept.(types.Object); ok {
+				newState.Settings = obj
+			}
+		}
 	}
 	if resp.Diagnostics.HasError() {
 		return
@@ -665,7 +681,7 @@ func cdnAnswerTemplateID(svc *client.Service, prior types.Int64) types.Int64 {
 
 // applySettings merges the configured settings onto the current document and
 // writes it. Nothing is written when unchanged, to avoid a redeploy.
-func (r *cdnServiceResource) applySettings(ctx context.Context, id int, planSettings types.Object) (*client.CDNWizardSettings, diag.Diagnostics) {
+func (r *cdnServiceResource) applySettings(ctx context.Context, id int, configured types.Object) (*client.CDNWizardSettings, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
 	live, err := r.client.GetWizardSettings(ctx, id)
@@ -674,7 +690,7 @@ func (r *cdnServiceResource) applySettings(ctx context.Context, id int, planSett
 		return nil, diags
 	}
 
-	overlay, d := cdnSettingsOverlay(ctx, planSettings)
+	overlay, d := cdnSettingsOverlay(ctx, configured)
 	diags.Append(d...)
 	if diags.HasError() {
 		return nil, diags

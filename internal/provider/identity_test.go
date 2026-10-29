@@ -305,7 +305,7 @@ func TestServiceCreateUpdateSetIdentity(t *testing.T) {
 		}},
 	})
 	created := &resource.CreateResponse{State: nullState(t, r), Identity: nullIdentity(t, r)}
-	r.Create(ctx, resource.CreateRequest{Plan: plan, Identity: nullIdentity(t, r)}, created)
+	r.Create(ctx, resource.CreateRequest{Plan: plan, Config: tfsdk.Config(plan), Identity: nullIdentity(t, r)}, created)
 	if created.Diagnostics.HasError() {
 		t.Fatalf("create: %v", created.Diagnostics.Errors())
 	}
@@ -315,7 +315,7 @@ func TestServiceCreateUpdateSetIdentity(t *testing.T) {
 
 	state := created.State
 	updated := &resource.UpdateResponse{State: state, Identity: nullIdentity(t, r)}
-	r.Update(ctx, resource.UpdateRequest{Plan: tfsdk.Plan(state), State: state, Identity: nullIdentity(t, r)}, updated)
+	r.Update(ctx, resource.UpdateRequest{Plan: tfsdk.Plan(state), Config: tfsdk.Config(state), State: state, Identity: nullIdentity(t, r)}, updated)
 	if updated.Diagnostics.HasError() {
 		t.Fatalf("update: %v", updated.Diagnostics.Errors())
 	}
