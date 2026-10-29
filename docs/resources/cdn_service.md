@@ -152,7 +152,9 @@ Optional:
 Optional:
 
 - `action` (String) Wizard setting cookies.onCookie.action. Valid values: pass, remove, allow_list (services on an older wizard version use allowList instead). Wizard default: remove (omit to track the service value).
+- `allow_drupal_cookies` (Boolean) Wizard setting cookies.onCookie.allowDrupalCookies.
 - `allow_list` (List of String) Wizard setting cookies.onCookie.allowList.
+- `allow_wordpress_cookies` (Boolean) Wizard setting cookies.onCookie.allowWordpressCookies.
 
 
 <a id="nestedatt--settings--cookies--on_set_cookie"></a>

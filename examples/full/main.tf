@@ -135,7 +135,12 @@ resource "varnish_cdn_service" "web" {
     }
 
     cookies = {
-      on_cookie     = { action = "remove", allow_list = [] }               # pass | remove | allow_list
+      on_cookie = {
+        action                  = "remove" # pass | remove | allow_list
+        allow_list              = []
+        allow_wordpress_cookies = false # applies when action is allow_list
+        allow_drupal_cookies    = false # applies when action is allow_list
+      }
       on_set_cookie = { action = "pass", allow_list = [], deny_list = [] } # pass | remove | allow_list | deny_list
     }
 

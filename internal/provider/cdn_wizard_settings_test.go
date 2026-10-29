@@ -57,6 +57,8 @@ const wizardDefaultSettings = `{
     "headers.trueClientIp": false,
     "cookies.onCookie.action": "remove",
     "cookies.onCookie.allowList": [],
+    "cookies.onCookie.allowWordpressCookies": false,
+    "cookies.onCookie.allowDrupalCookies": false,
     "cookies.onSetCookie.action": "pass",
     "cookies.onSetCookie.allowList": [],
     "cookies.onSetCookie.denyList": [],

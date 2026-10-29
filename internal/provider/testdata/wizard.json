@@ -17,7 +17,7 @@
             "name": "wizard.steps.general.fields.allowMethods.name",
             "description": "wizard.steps.general.fields.allowMethods.description",
             "longDescription": "wizard.steps.general.fields.allowMethods.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#allowed-methods",
+            "docs": "/docs/configuration/configuration/general#allowed-methods",
             "valueOptions": [
               {
                 "value": "GET",
@@ -75,7 +75,7 @@
             "name": "wizard.steps.general.fields.uncacheable.name",
             "description": "wizard.steps.general.fields.uncacheable.description",
             "longDescription": "wizard.steps.general.fields.uncacheable.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#disable-cache",
+            "docs": "/docs/configuration/configuration/general#disable-cache",
             "value": false,
             "ruleJsonPath": "uncacheable"
           },
@@ -85,7 +85,7 @@
             "name": "wizard.steps.general.fields.enableCacheableTTLOverride.name",
             "description": "wizard.steps.general.fields.enableCacheableTTLOverride.description",
             "longDescription": "wizard.steps.general.fields.enableCacheableTTLOverride.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#time-to-live-of-objects-ttl",
+            "docs": "/docs/configuration/configuration/general#time-to-live-of-objects-ttl",
             "value": true,
             "conditionalFields": [
               {
@@ -94,7 +94,7 @@
                 "name": "wizard.steps.general.fields.cacheableTTLOverride.name",
                 "description": "wizard.steps.general.fields.cacheableTTLOverride.description",
                 "longDescription": "wizard.steps.general.fields.cacheableTTLOverride.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#set-static-ttl",
+                "docs": "/docs/configuration/configuration/general#set-static-ttl",
                 "regexErrorHint": "wizard.steps.general.fields.cacheableTTLOverride.regexErrorHint",
                 "placeholderText": "wizard.steps.general.fields.cacheableTTLOverride.placeholderText",
                 "validationRegex": "duration_regex",
@@ -113,7 +113,7 @@
             "name": "wizard.steps.general.fields.enableErrorCodeTTLOverride.name",
             "description": "wizard.steps.general.fields.enableErrorCodeTTLOverride.description",
             "longDescription": "wizard.steps.general.fields.enableErrorCodeTTLOverride.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#time-to-live-of-objects-ttl",
+            "docs": "/docs/configuration/configuration/general#time-to-live-of-objects-ttl",
             "value": true,
             "conditionalFields": [
               {
@@ -122,7 +122,7 @@
                 "name": "wizard.steps.general.fields.errorCodeTTLOverride.name",
                 "description": "wizard.steps.general.fields.errorCodeTTLOverride.description",
                 "longDescription": "wizard.steps.general.fields.errorCodeTTLOverride.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#set-static-ttl",
+                "docs": "/docs/configuration/configuration/general#set-static-ttl",
                 "regexErrorHint": "wizard.steps.general.fields.errorCodeTTLOverride.regexErrorHint",
                 "placeholderText": "wizard.steps.general.fields.errorCodeTTLOverride.placeholderText",
                 "validationRegex": "duration_regex",
@@ -140,7 +140,7 @@
             "name": "wizard.steps.general.fields.uncacheableTTL.name",
             "description": "wizard.steps.general.fields.uncacheableTTL.description",
             "longDescription": "wizard.steps.general.fields.uncacheableTTL.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#uncacheable-ttl",
+            "docs": "/docs/configuration/configuration/general#uncacheable-ttl",
             "regexErrorHint": "wizard.steps.general.fields.uncacheableTTL.regexErrorHint",
             "placeholderText": "wizard.steps.general.fields.uncacheableTTL.placeholderText",
             "validationRegex": "duration_regex",
@@ -153,7 +153,7 @@
             "name": "wizard.steps.general.fields.firstByteTimeout.name",
             "description": "wizard.steps.general.fields.firstByteTimeout.description",
             "longDescription": "wizard.steps.general.fields.firstByteTimeout.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#first-byte-timeout",
+            "docs": "/docs/configuration/configuration/general#first-byte-timeout",
             "regexErrorHint": "wizard.steps.general.fields.firstByteTimeout.regexErrorHint",
             "placeholderText": "wizard.steps.general.fields.firstByteTimeout.placeholderText",
             "validationRegex": "duration_regex",
@@ -166,7 +166,7 @@
             "name": "wizard.steps.general.fields.websocket.name",
             "description": "wizard.steps.general.fields.websocket.description",
             "longDescription": "wizard.steps.general.fields.websocket.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#websocket",
+            "docs": "/docs/configuration/configuration/general#websocket",
             "valueOptions": [
               {
                 "value": "disable",
@@ -201,7 +201,7 @@
             "name": "wizard.steps.general.fields.urlDecodeReserved.name",
             "description": "wizard.steps.general.fields.urlDecodeReserved.description",
             "longDescription": "wizard.steps.general.fields.urlDecodeReserved.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#reserved-character-url-decoding",
+            "docs": "/docs/configuration/configuration/general#reserved-character-url-decoding",
             "valueOptions": [
               {
                 "value": "enabled",
@@ -222,7 +222,7 @@
             "name": "wizard.steps.general.fields.maxReqBodySize.name",
             "description": "wizard.steps.general.fields.maxReqBodySize.description",
             "longDescription": "wizard.steps.general.fields.maxReqBodySize.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#max-body-size",
+            "docs": "/docs/configuration/configuration/general#max-body-size",
             "regexErrorHint": "wizard.steps.general.fields.maxReqBodySize.regexErrorHint",
             "placeholderText": "wizard.steps.general.fields.maxReqBodySize.placeholderText",
             "validationRegex": "bytes_regex",
@@ -237,7 +237,7 @@
             "name": "wizard.steps.general.fields.chunkedBody.action.name",
             "description": "wizard.steps.general.fields.chunkedBody.action.description",
             "longDescription": "wizard.steps.general.fields.chunkedBody.action.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#big-uploads",
+            "docs": "/docs/configuration/configuration/general#big-uploads",
             "valueOptions": [
               {
                 "value": "deny",
@@ -261,7 +261,7 @@
             "name": "wizard.steps.general.fields.sharding.name",
             "description": "wizard.steps.general.fields.sharding.description",
             "longDescription": "wizard.steps.general.fields.sharding.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#sharding",
+            "docs": "/docs/configuration/configuration/general#sharding",
             "value": false,
             "ruleJsonPath": "sharding",
             "conditionalFields": [
@@ -271,7 +271,7 @@
                 "name": "wizard.steps.general.fields.sharding.hashSource.name",
                 "description": "wizard.steps.general.fields.sharding.hashSource.description",
                 "longDescription": "wizard.steps.general.fields.sharding.hashSource.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#sharding",
+                "docs": "/docs/configuration/configuration/general#sharding",
                 "global": false,
                 "valueOptions": [
                   {
@@ -297,7 +297,7 @@
             "name": "wizard.steps.general.fields.backendRetry.name",
             "description": "wizard.steps.general.fields.backendRetry.description",
             "longDescription": "wizard.steps.general.fields.backendRetry.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#backend-retry",
+            "docs": "/docs/configuration/configuration/general#backend-retry",
             "value": false,
             "ruleJsonPath": "backend_retry"
           },
@@ -307,7 +307,7 @@
             "name": "wizard.steps.general.fields.enableUrlRewrite.name",
             "description": "wizard.steps.general.fields.enableUrlRewrite.description",
             "longDescription": "wizard.steps.general.fields.enableUrlRewrite.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#url-rewrite",
+            "docs": "/docs/configuration/configuration/general#url-rewrite",
             "value": false,
             "conditionalFields": [
               {
@@ -316,7 +316,7 @@
                 "name": "wizard.steps.general.fields.urlRewrite.name",
                 "description": "wizard.steps.general.fields.urlRewrite.description",
                 "longDescription": "wizard.steps.general.fields.urlRewrite.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#url-rewrite",
+                "docs": "/docs/configuration/configuration/general#url-rewrite",
                 "regexErrorHint": "wizard.steps.general.fields.urlRewrite.regexErrorHint",
                 "placeholderText": "wizard.steps.general.fields.urlRewrite.placeholderText",
                 "validationRegex": "url_rewrite_path_regex",
@@ -341,7 +341,7 @@
             "name": "wizard.steps.highAvailability.fields.enableStaleIfError.name",
             "description": "wizard.steps.highAvailability.fields.enableStaleIfError.description",
             "longDescription": "wizard.steps.highAvailability.fields.enableStaleIfError.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-if-error",
+            "docs": "/docs/configuration/configuration/high-availability#stale-if-error",
             "value": true,
             "conditionalFields": [
               {
@@ -350,7 +350,7 @@
                 "name": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.name",
                 "description": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.description",
                 "longDescription": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#keep-stale-duration",
+                "docs": "/docs/configuration/configuration/high-availability#keep-stale-duration",
                 "regexErrorHint": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.regexErrorHint",
                 "placeholderText": "wizard.steps.highAvailability.fields.staleIfError.keepStaleDuration.placeholderText",
                 "validationRegex": "duration_regex",
@@ -366,7 +366,7 @@
                 "name": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.name",
                 "description": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.description",
                 "longDescription": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-revive",
+                "docs": "/docs/configuration/configuration/high-availability#stale-revive",
                 "value": true,
                 "conditionValue": [
                   true
@@ -378,7 +378,7 @@
                     "name": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.name",
                     "description": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.description",
                     "longDescription": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.longDescription",
-                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-revive-ttl",
+                    "docs": "/docs/configuration/configuration/high-availability#stale-revive-ttl",
                     "regexErrorHint": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.regexErrorHint",
                     "placeholderText": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.ttl.placeholderText",
                     "validationRegex": "duration_regex",
@@ -394,7 +394,7 @@
                     "name": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.name",
                     "description": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.description",
                     "longDescription": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.longDescription",
-                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/high-availability#stale-revive-grace",
+                    "docs": "/docs/configuration/configuration/high-availability#stale-revive-grace",
                     "regexErrorHint": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.regexErrorHint",
                     "placeholderText": "wizard.steps.highAvailability.fields.staleIfError.staleRevive.grace.placeholderText",
                     "validationRegex": "duration_regex",
@@ -421,7 +421,7 @@
             "name": "wizard.steps.queryParams.fields.removeQueryParameters.action.name",
             "description": "wizard.steps.queryParams.fields.removeQueryParameters.action.description",
             "longDescription": "wizard.steps.queryParams.fields.removeQueryParameters.action.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/query-parameters#query-parameters",
+            "docs": "/docs/configuration/configuration/query-parameters#query-parameters",
             "valueOptions": [
               {
                 "value": "redirect",
@@ -456,7 +456,7 @@
             "name": "wizard.steps.headers.fields.onAuthHeader.action.name",
             "description": "wizard.steps.headers.fields.onAuthHeader.action.description",
             "longDescription": "wizard.steps.headers.fields.onAuthHeader.action.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#on-authorization-header",
+            "docs": "/docs/configuration/configuration/headers#on-authorization-header",
             "valueOptions": [
               {
                 "value": "remove",
@@ -476,7 +476,7 @@
             "name": "wizard.steps.headers.fields.unsetHeadersForDelivery.name",
             "description": "wizard.steps.headers.fields.unsetHeadersForDelivery.description",
             "longDescription": "wizard.steps.headers.fields.unsetHeadersForDelivery.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#remove-returned-headers",
+            "docs": "/docs/configuration/configuration/headers#remove-returned-headers",
             "value": [],
             "regexErrorHint": "wizard.steps.headers.fields.unsetHeadersForDelivery.regexErrorHint",
             "placeholderText": "wizard.steps.headers.fields.unsetHeadersForDelivery.placeholderText",
@@ -490,7 +490,7 @@
             "name": "wizard.steps.headers.fields.hashHeaders.name",
             "description": "wizard.steps.headers.fields.hashHeaders.description",
             "longDescription": "wizard.steps.headers.fields.hashHeaders.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#custom-cache-key-headers",
+            "docs": "/docs/configuration/configuration/headers#custom-cache-key-headers",
             "value": [],
             "regexErrorHint": "wizard.steps.headers.fields.hashHeaders.regexErrorHint",
             "placeholderText": "wizard.steps.headers.fields.hashHeaders.placeholderText",
@@ -504,7 +504,7 @@
             "name": "wizard.steps.headers.fields.setBackendHeaders.name",
             "description": "wizard.steps.headers.fields.setBackendHeaders.description",
             "longDescription": "wizard.steps.headers.fields.setBackendHeaders.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#set-request-headers",
+            "docs": "/docs/configuration/configuration/headers#set-request-headers",
             "value": [],
             "ruleJsonPath": "backend_set_headers",
             "maxSize": 5,
@@ -537,7 +537,7 @@
             "name": "wizard.steps.headers.fields.setHeadersForDelivery.name",
             "description": "wizard.steps.headers.fields.setHeadersForDelivery.description",
             "longDescription": "wizard.steps.headers.fields.setHeadersForDelivery.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/headers#set-response-headers",
+            "docs": "/docs/configuration/configuration/headers#set-response-headers",
             "value": [],
             "ruleJsonPath": "deliver_set_headers",
             "maxSize": 16,
@@ -570,7 +570,7 @@
             "name": "wizard.steps.headers.fields.trueClientIp.name",
             "description": "wizard.steps.headers.fields.trueClientIp.description",
             "longDescription": "wizard.steps.headers.fields.trueClientIp.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/general#true-client-ip",
+            "docs": "/docs/configuration/configuration/general#true-client-ip",
             "value": false,
             "settingsKey": "pass_client_ip",
             "global": true
@@ -588,7 +588,7 @@
             "name": "wizard.steps.cookies.fields.onCookie.action.name",
             "description": "wizard.steps.cookies.fields.onCookie.action.description",
             "longDescription": "wizard.steps.cookies.fields.onCookie.action.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/cookies#on-cookie",
+            "docs": "/docs/configuration/configuration/cookies#on-cookie",
             "valueOptions": [
               {
                 "value": "pass",
@@ -621,6 +621,28 @@
                 "conditionValue": [
                   2
                 ]
+              },
+              {
+                "type": "boolean",
+                "stringId": "cookies.onCookie.allowWordpressCookies",
+                "name": "wizard.steps.cookies.fields.onCookie.allowWordpressCookies.name",
+                "description": "wizard.steps.cookies.fields.onCookie.allowWordpressCookies.description",
+                "longDescription": "wizard.steps.cookies.fields.onCookie.allowWordpressCookies.longDescription",
+                "value": false,
+                "conditionValue": [
+                  2
+                ]
+              },
+              {
+                "type": "boolean",
+                "stringId": "cookies.onCookie.allowDrupalCookies",
+                "name": "wizard.steps.cookies.fields.onCookie.allowDrupalCookies.name",
+                "description": "wizard.steps.cookies.fields.onCookie.allowDrupalCookies.description",
+                "longDescription": "wizard.steps.cookies.fields.onCookie.allowDrupalCookies.longDescription",
+                "value": false,
+                "conditionValue": [
+                  2
+                ]
               }
             ]
           },
@@ -630,7 +652,7 @@
             "name": "wizard.steps.cookies.fields.onSetCookie.action.name",
             "description": "wizard.steps.cookies.fields.onSetCookie.action.description",
             "longDescription": "wizard.steps.cookies.fields.onSetCookie.action.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/cookies#on-set-cookie",
+            "docs": "/docs/configuration/configuration/cookies#on-set-cookie",
             "valueOptions": [
               {
                 "value": "pass",
@@ -700,7 +722,7 @@
             "name": "wizard.steps.security.fields.httpsRedirect.name",
             "description": "wizard.steps.security.fields.httpsRedirect.description",
             "longDescription": "wizard.steps.security.fields.httpsRedirect.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#https-redirect",
+            "docs": "/docs/configuration/configuration/security#https-redirect",
             "value": true,
             "ruleJsonPath": "https_redirect"
           },
@@ -710,7 +732,7 @@
             "name": "wizard.steps.security.fields.hsts.name",
             "description": "wizard.steps.security.fields.hsts.description",
             "longDescription": "wizard.steps.security.fields.hsts.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#enable-hsts",
+            "docs": "/docs/configuration/configuration/security#enable-hsts",
             "value": true,
             "settingsKey": "hsts",
             "global": true
@@ -721,7 +743,7 @@
             "name": "wizard.steps.security.fields.botVerifySettings.name",
             "description": "wizard.steps.security.fields.botVerifySettings.description",
             "longDescription": "wizard.steps.security.fields.botVerifySettings.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-verification",
+            "docs": "/docs/configuration/configuration/security#bot-verification",
             "valueOptions": [
               {
                 "value": "enabled",
@@ -742,7 +764,7 @@
             "name": "wizard.steps.security.fields.enableHotlinkProtection.name",
             "description": "wizard.steps.security.fields.enableHotlinkProtection.description",
             "longDescription": "wizard.steps.security.fields.enableHotlinkProtection.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#hotlink-protection",
+            "docs": "/docs/configuration/configuration/security#hotlink-protection",
             "value": false,
             "ruleJsonPath": "hotlink_protection.enable",
             "conditionalFields": [
@@ -752,7 +774,7 @@
                 "name": "wizard.steps.security.fields.hotlinkProtection.friends.name",
                 "description": "wizard.steps.security.fields.hotlinkProtection.friends.description",
                 "longDescription": "wizard.steps.security.fields.hotlinkProtection.friends.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#hotlink-friends",
+                "docs": "/docs/configuration/configuration/security#hotlink-friends",
                 "value": "",
                 "regexErrorHint": "wizard.steps.security.fields.hotlinkProtection.friends.regexErrorHint",
                 "placeholderText": "wizard.steps.security.fields.hotlinkProtection.friends.placeholderText",
@@ -770,7 +792,7 @@
             "name": "wizard.steps.security.fields.asnFilter.enable.name",
             "description": "wizard.steps.security.fields.asnFilter.enable.description",
             "longDescription": "wizard.steps.security.fields.asnFilter.enable.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#asn-filter",
+            "docs": "/docs/configuration/configuration/security#asn-filter",
             "value": false,
             "conditionalFields": [
               {
@@ -779,7 +801,7 @@
                 "name": "wizard.steps.security.fields.asnFilter.allowVerifiedBots.name",
                 "description": "wizard.steps.security.fields.asnFilter.allowVerifiedBots.description",
                 "longDescription": "wizard.steps.security.fields.asnFilter.allowVerifiedBots.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#asn-filter",
+                "docs": "/docs/configuration/configuration/security#asn-filter",
                 "value": true,
                 "ruleJsonPath": "asn_filter.allow_verified_bots",
                 "conditionValue": [
@@ -906,7 +928,7 @@
             "name": "wizard.steps.security.fields.botProtection.mode.name",
             "description": "wizard.steps.security.fields.botProtection.mode.description",
             "longDescription": "wizard.steps.security.fields.botProtection.mode.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-protection-standard",
+            "docs": "/docs/configuration/configuration/security#bot-protection-standard",
             "valueOptions": [
               {
                 "value": "captcha",
@@ -931,7 +953,7 @@
                 "name": "wizard.steps.security.fields.botProtection.captchaTtl.name",
                 "description": "wizard.steps.security.fields.botProtection.captchaTtl.description",
                 "longDescription": "wizard.steps.security.fields.botProtection.captchaTtl.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-protection-standard",
+                "docs": "/docs/configuration/configuration/security#bot-protection-standard",
                 "regexErrorHint": "wizard.steps.security.fields.botProtection.captchaTtl.regexErrorHint",
                 "placeholderText": "wizard.steps.security.fields.botProtection.captchaTtl.placeholderText",
                 "validationRegex": "duration_regex",
@@ -952,7 +974,7 @@
             "description": "wizard.steps.security.fields.botProtection.vpow.description",
             "longDescription": "wizard.steps.security.fields.botProtection.vpow.longDescription",
             "pricing": "wizard.steps.security.fields.botProtection.vpow.pricing",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#bot-protection-standard",
+            "docs": "/docs/configuration/configuration/security#bot-protection-standard",
             "value": false,
             "ruleJsonPath": "VCDN-proof-of-work",
             "usageMetric": "botprotection-activation"
@@ -963,7 +985,7 @@
             "name": "wizard.steps.security.fields.waf.enable.name",
             "description": "wizard.steps.security.fields.waf.enable.description",
             "longDescription": "wizard.steps.security.fields.waf.enable.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+            "docs": "/docs/configuration/configuration/security#waf",
             "value": false,
             "settingsKey": "enable_waf",
             "ruleJsonPath": "waf_config.run",
@@ -975,7 +997,7 @@
                 "name": "wizard.steps.security.fields.waf.mode.name",
                 "description": "wizard.steps.security.fields.waf.mode.description",
                 "longDescription": "wizard.steps.security.fields.waf.mode.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "docs": "/docs/configuration/configuration/security#waf",
                 "valueOptions": [
                   {
                     "value": "detect",
@@ -999,7 +1021,7 @@
                 "name": "wizard.steps.security.fields.waf.owasp.name",
                 "description": "wizard.steps.security.fields.waf.owasp.description",
                 "longDescription": "wizard.steps.security.fields.waf.owasp.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "docs": "/docs/configuration/configuration/security#waf",
                 "value": false,
                 "settingsKey": "enable_waf_owasp_core",
                 "global": true,
@@ -1013,7 +1035,7 @@
                 "name": "wizard.steps.security.fields.waf.atomic.name",
                 "description": "wizard.steps.security.fields.waf.atomic.description",
                 "longDescription": "wizard.steps.security.fields.waf.atomic.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "docs": "/docs/configuration/configuration/security#waf",
                 "value": false,
                 "settingsKey": "enable_waf_atomic",
                 "global": true,
@@ -1029,7 +1051,7 @@
                 "name": "wizard.steps.security.fields.waf.skipRuleId.name",
                 "description": "wizard.steps.security.fields.waf.skipRuleId.description",
                 "longDescription": "wizard.steps.security.fields.waf.skipRuleId.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#waf",
+                "docs": "/docs/configuration/configuration/security#waf",
                 "value": "",
                 "regexErrorHint": "wizard.steps.security.fields.waf.skipRuleId.regexErrorHint",
                 "placeholderText": "wizard.steps.security.fields.waf.skipRuleId.placeholderText",
@@ -1046,7 +1068,7 @@
                 "name": "wizard.steps.security.fields.waf.bypassAclEnable.name",
                 "description": "wizard.steps.security.fields.waf.bypassAclEnable.description",
                 "longDescription": "wizard.steps.security.fields.waf.bypassAclEnable.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+                "docs": "/docs/configuration/configuration/security#acls",
                 "value": false,
                 "ruleJsonPath": "waf_config.acl_bypass",
                 "global": false,
@@ -1060,7 +1082,7 @@
                 "name": "wizard.steps.security.fields.waf.bypassAcl.name",
                 "description": "wizard.steps.security.fields.waf.bypassAcl.description",
                 "longDescription": "wizard.steps.security.fields.waf.bypassAcl.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+                "docs": "/docs/configuration/configuration/security#acls",
                 "value": "",
                 "regexErrorHint": "wizard.steps.security.fields.waf.bypassAcl.regexErrorHint",
                 "placeholderText": "wizard.steps.security.fields.waf.bypassAcl.placeholderText",
@@ -1079,7 +1101,7 @@
             "name": "wizard.steps.security.fields.requireAdminAcl.name",
             "description": "wizard.steps.security.fields.requireAdminAcl.description",
             "longDescription": "wizard.steps.security.fields.requireAdminAcl.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "docs": "/docs/configuration/configuration/security#acls",
             "value": false,
             "ruleJsonPath": "require_admin",
             "global": false
@@ -1090,7 +1112,7 @@
             "name": "wizard.steps.security.fields.adminAcl.name",
             "description": "wizard.steps.security.fields.adminAcl.description",
             "longDescription": "wizard.steps.security.fields.adminAcl.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "docs": "/docs/configuration/configuration/security#acls",
             "value": "",
             "regexErrorHint": "wizard.steps.security.fields.adminAcl.regexErrorHint",
             "placeholderText": "wizard.steps.security.fields.adminAcl.placeholderText",
@@ -1104,7 +1126,7 @@
             "name": "wizard.steps.security.fields.alwaysBlock.enable.name",
             "description": "wizard.steps.security.fields.alwaysBlock.enable.description",
             "longDescription": "wizard.steps.security.fields.alwaysBlock.enable.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "docs": "/docs/configuration/configuration/security#acls",
             "value": false,
             "global": false,
             "conditionalFields": [
@@ -1114,7 +1136,7 @@
                 "name": "wizard.steps.security.fields.alwaysBlock.action.name",
                 "description": "wizard.steps.security.fields.alwaysBlock.action.description",
                 "longDescription": "wizard.steps.security.fields.alwaysBlock.action.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+                "docs": "/docs/configuration/configuration/security#acls",
                 "valueOptions": [
                   {
                     "value": "400",
@@ -1143,7 +1165,7 @@
             "name": "wizard.steps.security.fields.alwaysBlockAcl.name",
             "description": "wizard.steps.security.fields.alwaysBlockAcl.description",
             "longDescription": "wizard.steps.security.fields.alwaysBlockAcl.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#acls",
+            "docs": "/docs/configuration/configuration/security#acls",
             "value": "",
             "regexErrorHint": "wizard.steps.security.fields.alwaysBlockAcl.regexErrorHint",
             "placeholderText": "wizard.steps.security.fields.alwaysBlockAcl.placeholderText",
@@ -1157,7 +1179,7 @@
             "name": "wizard.steps.security.fields.ratelimit.enable.name",
             "description": "wizard.steps.security.fields.ratelimit.enable.description",
             "longDescription": "wizard.steps.security.fields.ratelimit.enable.longDescription",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/security#rate-limiting",
+            "docs": "/docs/configuration/configuration/security#rate-limiting",
             "value": false,
             "global": true,
             "conditionalFields": [
@@ -1242,7 +1264,7 @@
             "longDescription": "wizard.steps.optimisation.fields.imageopt.webp.longDescription",
             "value": true,
             "ruleJsonPath": "image_optimize.webp",
-            "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#image-optimisation",
+            "docs": "/docs/configuration/configuration/image-handling#image-optimisation",
             "conditionalFields": [
               {
                 "type": "integer",
@@ -1265,7 +1287,7 @@
                 "name": "wizard.steps.optimisation.fields.imagetrans.enable.name",
                 "description": "wizard.steps.optimisation.fields.imagetrans.enable.description",
                 "longDescription": "wizard.steps.optimisation.fields.imagetrans.enable.longDescription",
-                "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#image-transformation",
+                "docs": "/docs/configuration/configuration/image-handling#image-transformation",
                 "value": false,
                 "conditionValue": [
                   true
@@ -1281,7 +1303,7 @@
                     "longDescription": "wizard.steps.optimisation.fields.imagetrans.widthParam.longDescription",
                     "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.widthParam.regexErrorHint",
                     "placeholderText": "wizard.steps.optimisation.fields.imagetrans.widthParam.placeholderText",
-                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#width-parameter",
+                    "docs": "/docs/configuration/configuration/image-handling#width-parameter",
                     "validationRegex": "url_param_regex",
                     "value": "width",
                     "ruleJsonPath": "image_optimize.width_param",
@@ -1297,7 +1319,7 @@
                     "longDescription": "wizard.steps.optimisation.fields.imagetrans.heightParam.longDescription",
                     "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.heightParam.regexErrorHint",
                     "placeholderText": "wizard.steps.optimisation.fields.imagetrans.heightParam.placeholderText",
-                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#height-parameter",
+                    "docs": "/docs/configuration/configuration/image-handling#height-parameter",
                     "validationRegex": "url_param_regex",
                     "value": "height",
                     "ruleJsonPath": "image_optimize.height_param",
@@ -1311,7 +1333,7 @@
                     "name": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.name",
                     "description": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.description",
                     "longDescription": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.longDescription",
-                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#allowed-dimensions",
+                    "docs": "/docs/configuration/configuration/image-handling#allowed-dimensions",
                     "value": "",
                     "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.regexErrorHint",
                     "placeholderText": "wizard.steps.optimisation.fields.imagetrans.allowedDimensions.placeholderText",
@@ -1327,7 +1349,7 @@
                     "name": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.name",
                     "description": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.description",
                     "longDescription": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.longDescription",
-                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#allowed-dimensions",
+                    "docs": "/docs/configuration/configuration/image-handling#allowed-dimensions",
                     "value": "",
                     "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.regexErrorHint",
                     "placeholderText": "wizard.steps.optimisation.fields.imagetrans.allowedWidths.placeholderText",
@@ -1343,7 +1365,7 @@
                     "name": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.name",
                     "description": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.description",
                     "longDescription": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.longDescription",
-                    "docs": "https://www.varnish-cdn.com/docs/configuration/configuration/image-handling#allowed-dimensions",
+                    "docs": "/docs/configuration/configuration/image-handling#allowed-dimensions",
                     "value": "",
                     "regexErrorHint": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.regexErrorHint",
                     "placeholderText": "wizard.steps.optimisation.fields.imagetrans.allowedHeights.placeholderText",
