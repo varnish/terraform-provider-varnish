@@ -3,7 +3,7 @@
 ## wizard.json
 
 An unmodified copy of the latest released Varnish CDN wizard version, currently
-v25.
+v26.
 
 The provider supports exactly one wizard shape, so only the latest version is kept.
 `TestSettingsSchemaCoversWizardVersion` asserts that the settings schema in

@@ -150,6 +150,8 @@ var cdnSettingsTree = []cdnSettingsField{
 		grp("on_cookie",
 			lsel("cookies.onCookie.action", "remove", "pass", "remove", "allow_list").withLegacy("allowList"),
 			lf(kindStringList, "cookies.onCookie.allowList"),
+			lf(kindBool, "cookies.onCookie.allowWordpressCookies"),
+			lf(kindBool, "cookies.onCookie.allowDrupalCookies"),
 		),
 		grp("on_set_cookie",
 			lsel("cookies.onSetCookie.action", "pass", "pass", "remove", "allow_list", "deny_list").withLegacy("allowList", "denyList"),
