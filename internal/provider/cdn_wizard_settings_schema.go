@@ -14,8 +14,15 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/float64planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listdefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -242,10 +249,11 @@ func cdnSettingsAttribute() schema.SingleNestedAttribute {
 	}
 	attrs[cdnOverridesAttrName] = cdnOverridesAttribute()
 	return schema.SingleNestedAttribute{
-		Optional:    true,
-		Computed:    true,
-		Description: cdnSettingsDescription,
-		Attributes:  attrs,
+		Optional:      true,
+		Computed:      true,
+		Description:   cdnSettingsDescription,
+		Attributes:    attrs,
+		PlanModifiers: keepObject,
 	}
 }
 
@@ -258,6 +266,13 @@ func legacyNote(legacy []string) string {
 	return " (services on an older wizard version use " + strings.Join(legacy, ", ") + " instead)"
 }
 
+// An omitted setting keeps its state value in the plan, so an update shows only real changes.
+var (
+	keepObject = []planmodifier.Object{objectplanmodifier.UseStateForUnknown()}
+	keepList   = []planmodifier.List{listplanmodifier.UseStateForUnknown()}
+	keepString = []planmodifier.String{stringplanmodifier.UseStateForUnknown()}
+)
+
 // noComma rejects a comma in a csv-backed list entry.
 var noComma = stringvalidator.RegexMatches(regexp.MustCompile(`^[^,]*$`),
 	"must not contain a comma: the wizard stores this setting as a comma separated list")
@@ -268,36 +283,42 @@ func (f cdnSettingsField) attribute() schema.Attribute {
 		for _, c := range f.children {
 			attrs[c.name] = c.attribute()
 		}
-		return schema.SingleNestedAttribute{Optional: true, Computed: true, Attributes: attrs}
+		return schema.SingleNestedAttribute{Optional: true, Computed: true, Attributes: attrs, PlanModifiers: keepObject}
 	}
 
 	desc := "Wizard setting " + f.wire + "."
 	switch f.kind {
 	case kindBool:
-		return schema.BoolAttribute{Optional: true, Computed: true, Description: desc}
+		return schema.BoolAttribute{Optional: true, Computed: true, Description: desc,
+			PlanModifiers: []planmodifier.Bool{boolplanmodifier.UseStateForUnknown()}}
 	case kindInt:
-		return schema.Int64Attribute{Optional: true, Computed: true, Description: desc}
+		return schema.Int64Attribute{Optional: true, Computed: true, Description: desc,
+			PlanModifiers: []planmodifier.Int64{int64planmodifier.UseStateForUnknown()}}
 	case kindFloat:
 		return schema.Float64Attribute{Optional: true, Computed: true,
-			Description: desc + " It is stored as a 32 bit float, so it keeps about 7 significant digits."}
+			Description:   desc + " It is stored as a 32 bit float, so it keeps about 7 significant digits.",
+			PlanModifiers: []planmodifier.Float64{float64planmodifier.UseStateForUnknown()}}
 	case kindStringList:
-		return schema.ListAttribute{Optional: true, Computed: true, ElementType: types.StringType, Description: desc}
+		return schema.ListAttribute{Optional: true, Computed: true, ElementType: types.StringType, Description: desc,
+			PlanModifiers: keepList}
 	case kindCsvList:
 		return schema.ListAttribute{
-			Optional:    true,
-			Computed:    true,
-			ElementType: types.StringType,
-			Validators:  []validator.List{listvalidator.ValueStringsAre(noComma)},
-			Description: desc + " Entries must not contain a comma.",
+			Optional:      true,
+			Computed:      true,
+			ElementType:   types.StringType,
+			Validators:    []validator.List{listvalidator.ValueStringsAre(noComma)},
+			Description:   desc + " Entries must not contain a comma.",
+			PlanModifiers: keepList,
 		}
 	case kindNameValueRows:
 		if f.sensitive {
 			desc += " Row values are treated as secrets and hidden from plan output."
 		}
 		return schema.ListNestedAttribute{
-			Optional:    true,
-			Computed:    true,
-			Description: desc,
+			Optional:      true,
+			Computed:      true,
+			Description:   desc,
+			PlanModifiers: keepList,
 			NestedObject: schema.NestedAttributeObject{Attributes: map[string]schema.Attribute{
 				"name":  schema.StringAttribute{Required: true},
 				"value": schema.StringAttribute{Required: true, Sensitive: f.sensitive},
@@ -311,9 +332,10 @@ func (f cdnSettingsField) attribute() schema.Attribute {
 			Validators: []validator.String{stringvalidator.OneOf(append(slices.Clone(f.options), f.legacy...)...)},
 			Description: desc + " Valid values: " + strings.Join(f.options, ", ") + legacyNote(f.legacy) +
 				". Wizard default: " + f.dflt + " (omit to track the service value).",
+			PlanModifiers: keepString,
 		}
 	}
-	return schema.StringAttribute{Optional: true, Computed: true, Description: desc}
+	return schema.StringAttribute{Optional: true, Computed: true, Description: desc, PlanModifiers: keepString}
 }
 
 // emptyStringList is the default for an override's paths and extensions. Without
@@ -323,9 +345,10 @@ var emptyStringList = types.ListValueMust(types.StringType, []attr.Value{})
 
 func cdnOverridesAttribute() schema.ListNestedAttribute {
 	return schema.ListNestedAttribute{
-		Optional:    true,
-		Computed:    true,
-		Description: cdnOverridesDescription,
+		Optional:      true,
+		Computed:      true,
+		Description:   cdnOverridesDescription,
+		PlanModifiers: keepList,
 		NestedObject: schema.NestedAttributeObject{Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				Required:    true,
