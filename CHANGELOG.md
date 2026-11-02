@@ -1,3 +1,23 @@
+## 0.2.0 (2026-11-02)
+  
+FEATURES:
+
+* `varnish_cdn_service`: Wizard settings follow wizard version 26.
+* `varnish_cdn_service`: New settings `settings.cookies.on_cookie.allow_wordpress_cookies`
+  and `settings.cookies.on_cookie.allow_drupal_cookies`. They apply when the
+  `on_cookie` action is `allow_list`.
+
+BUG FIXES:
+
+* `varnish_cdn_service`: Plans show only real changes. Computed values and unset
+  settings keep their state values instead of showing as `(known after apply)`.
+* `varnish_cdn_service`: Existing domains keep their computed values (`id`, `status`,
+  `txt_record`, `verified_at`, `is_cdn`, `cert_id`) in the plan. They are matched by
+  `fqdn` and `subdomain`, so adding or removing a domain does not affect the others.
+  `status` and `verified_at` stay unknown when `tls` or `cert_id` changes.
+* `varnish_cdn_service`: Create and update send only the settings set in the
+  configuration. Changes made in the UI between plan and apply are kept.
+
 ## 0.1.1 (2026-10-21)
 
 SECURITY:
