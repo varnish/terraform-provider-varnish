@@ -65,12 +65,14 @@ signs:
       - "--detach-sign"
       - "${artifact}"
 
-# the release already exists when the workflow runs, keep its notes
+# draft until the workflow's trivy scan passes
 release:
-  mode: keep-existing
+  draft: true
+  replace_existing_draft: true
   extra_files:
     - glob: terraform-registry-manifest.json
       name_template: "{{ .ProjectName }}_{{ .Version }}_manifest.json"
 
+# a disabled changelog also ignores --release-notes
 changelog:
-  disable: true
+  disable: false
