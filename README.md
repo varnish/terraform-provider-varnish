@@ -168,11 +168,26 @@ Org-level resources (`varnish_org_user`, `varnish_roles`) have no product prefix
 
 ## Releasing
 
-1. Tag the commit with `vX.Y.Z`. The `v` is required.
-2. Create and publish a GitHub release for the tag.
+1. Add a `## X.Y.Z` section to `CHANGELOG.md`. It becomes the release notes.
+2. Tag the commit with `vX.Y.Z` and push the tag. The `v` is required.
 
-Publishing runs `.github/workflows/release.yml`, which builds, signs and uploads the
-release artifacts.
+The tag push runs `.github/workflows/release.yml`. It waits for approval in the
+`Release` environment. Then it builds and signs the artifacts into a draft release
+and scans the SBOM with Trivy. It publishes the draft only if no critical
+vulnerabilities are found. The run fails if `CHANGELOG.md` has no section for the
+version.
+
+Do not create the GitHub release by hand. The run fails if one is already published.
+If the run fails, the draft is deleted and nothing is published. Fix the problem on
+`main`, then move the tag to the fixed commit. The push starts a new run:
+
+```sh
+git checkout main && git pull
+git tag -f vX.Y.Z
+git push -f origin vX.Y.Z
+```
+
+Never move the tag of a published release.
 
 The same GitHub release artifacts serve both registries. The Terraform Registry
 publishes a new release via its webhook. The OpenTofu Registry needs a one-time

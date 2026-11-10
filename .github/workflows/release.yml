@@ -1,8 +1,12 @@
 name: release
 
 on:
-  release:
-    types: [published]
+  push:
+    tags: ["v*"]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -20,9 +24,34 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event.release.tag_name }}
           fetch-depth: 0
           persist-credentials: false
+
+      # outside the workspace: goreleaser fails on a dirty git tree
+      - name: extract release notes
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          awk -v version="${TAG#v}" '
+            /^## / { if (found) exit; found = ($2 == version); next }
+            found { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          if ! grep -q '[^[:space:]]' "$RUNNER_TEMP/notes.md"; then
+            echo "CHANGELOG.md has no notes for $TAG" >&2
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/notes.md"
+
+      # goreleaser would upload into a published release before trivy runs
+      - name: check release is not published
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft 2>/dev/null)" = "false" ]; then
+            echo "release $TAG is already published" >&2
+            exit 1
+          fi
 
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
@@ -53,7 +82,7 @@ jobs:
       - uses: goreleaser/goreleaser-action@a4f02ab5355a589de60d917a659ce617ed19b3de # v7.3.0
         with:
           version: v2.18.2
-          args: release --clean
+          args: release --clean --release-notes ${{ runner.temp }}/notes.md
         env:
           GPG_FINGERPRINT: ${{ steps.gpg.outputs.fingerprint }}
           GPG_PASSPHRASE: ${{ secrets.PASSPHRASE }}
@@ -93,7 +122,7 @@ jobs:
         if: always() && hashFiles('trivy-report.txt') != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ github.event.release.tag_name }}
+          TAG: ${{ github.ref_name }}
         run: |
           {
             echo '## Trivy scan'
@@ -103,6 +132,22 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           gh release upload "$TAG" trivy-report.txt --clobber
 
-      # the release is already published, so this only marks the run failed
+      # failing here deletes the draft, so nothing is published
       - name: fail on critical vulnerabilities
         run: trivy convert --exit-code 1 --severity CRITICAL --format table trivy.json
+
+      - name: publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: gh release edit "$TAG" --draft=false
+
+      - name: delete draft release
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft 2>/dev/null)" = "true" ]; then
+            gh release delete "$TAG" --yes
+          fi
